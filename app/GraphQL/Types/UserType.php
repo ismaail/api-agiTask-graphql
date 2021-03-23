@@ -1,0 +1,40 @@
+<?php
+
+namespace App\GraphQL\Types;
+
+use App\Models\User;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Type as GraphqlType;
+
+/**
+ * Class UserType
+ * @package App\GraphQL\Types
+ */
+class UserType extends GraphqlType
+{
+    /**
+     * @var array
+     */
+    protected $attributes = [
+        'name' => 'User',
+        'model' => User::class,
+    ];
+
+    /**
+     * @return array[]
+     */
+    public function fields(): array
+    {
+        return [
+            'id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'username' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'email' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+        ];
+    }
+}
