@@ -30,7 +30,11 @@ class DatabaseSeeder extends Seeder
      */
     private function truncateAllTable(): void
     {
-        \DB::statement('TRUNCATE TABLE projects CASCADE');
-        \DB::statement('TRUNCATE TABLE users CASCADE');
+        \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        \DB::statement('TRUNCATE TABLE projects');
+        \DB::statement('TRUNCATE TABLE users');
+
+        \DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
