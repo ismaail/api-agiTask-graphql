@@ -3,10 +3,10 @@ version: "3"
 services:
     database:
       container_name: api-agitask_database
-      image: postgres:9.6
-      env_file: ./.docker/postgres/.env
+      image: mysql:8.0
+      env_file: ./.docker/mysql/.env
       volumes:
-        - api-agitask-data-postgres:/var/lib/postgresql/data
+        - api-agitask-data-mysql:/var/lib/mysql
 
     wwwsqldesigner:
       container_name: api-agitask_wwwsqldesigner
@@ -55,7 +55,7 @@ services:
 # Volumes definition
 #
 volumes:
-  api-agitask-data-postgres:
+  api-agitask-data-mysql:
     driver: local
 
 networks:
