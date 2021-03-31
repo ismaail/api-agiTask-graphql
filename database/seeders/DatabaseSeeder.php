@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Project;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +19,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->truncateAllTable();
 
-        $users = \App\Models\User::factory(1)->create();
+        $users = User::factory(1)->create([
+            'username' => 'jhon-doe',
+            'email' => 'doe@example.com',
+        ]);
 
         Project::factory(3)->create([
             'owner_id' => $users[0]->id,
