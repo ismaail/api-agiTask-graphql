@@ -39,7 +39,7 @@ class ProjectType extends GraphqlType
                 'type' => Type::nonNull(Type::boolean()),
             ],
             'owner' => [
-                'type' => GraphQL::Type('User'),
+                'type' => Type::nonNull(GraphQL::type('User')),
             ]
         ];
     }
