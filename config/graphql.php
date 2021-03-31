@@ -97,6 +97,8 @@ return [
         'default' => [
             'query' => [
                 \App\GraphQL\Queries\UserQuery::class,
+
+                \App\GraphQL\Queries\ProjectsQuery::class,
                 \App\GraphQL\Queries\ProjectQuery::class,
             ],
             'mutation' => [
