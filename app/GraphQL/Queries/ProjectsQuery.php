@@ -15,7 +15,7 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
-class ProjectQuery extends Query
+class ProjectsQuery extends Query
 {
     use PipeFilter;
 
@@ -27,35 +27,18 @@ class ProjectQuery extends Query
     ];
 
     /**
-     * @return array[]
-     */
-    public function args(): array
-    {
-        return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::int(),
-            ],
-            'archived' => [
-                'name' => 'archived',
-                'type' => Type::boolean(),
-            ],
-        ];
-    }
-
-    /**
      * @return \GraphQL\Type\Definition\Type
      */
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type('Project'));
+        return GraphQL::paginate('Project');
     }
 
     /**
      * @param $root
      * @param array $args
      *
-     * @return \App\Models\Project[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function resolve($root, array $args)
     {
@@ -64,6 +47,6 @@ class ProjectQuery extends Query
         $this->pipeFilterQuery($query, 'id', $args);
         $this->pipeFilterQuery($query, 'archived', $args);
 
-        return $query->get();
+        return $query->paginate();
     }
 }
