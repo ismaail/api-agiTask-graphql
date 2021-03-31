@@ -31,22 +31,14 @@ class ProjectsQuery extends Query
      */
     public function type(): Type
     {
-        return GraphQL::paginate('Project');
+        return GraphQL::paginate(GraphQL::type('Project'));
     }
 
     /**
-     * @param $root
-     * @param array $args
-     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function resolve($root, array $args)
+    public function resolve()
     {
-        $query = Project::getQuery();
-
-        $this->pipeFilterQuery($query, 'id', $args);
-        $this->pipeFilterQuery($query, 'archived', $args);
-
-        return $query->paginate();
+        return Project::paginate();
     }
 }
