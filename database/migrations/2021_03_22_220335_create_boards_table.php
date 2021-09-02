@@ -5,16 +5,16 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateUsersTable
+ * Class CreateBoardsTable
  *
  * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
  */
-class CreateUsersTable extends Migration
+class CreateBoardsTable extends Migration
 {
     /**
      * @const string
      */
-    public const TABLE_NAME = 'users';
+    public const TABLE_NAME = 'boards';
 
     /**
      * Run the migrations.
@@ -23,11 +23,9 @@ class CreateUsersTable extends Migration
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->boolean('archived')->default(false);
             $table->timestamps();
         });
     }
