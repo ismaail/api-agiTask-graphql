@@ -25,6 +25,7 @@ class UsersQuery extends Query
      */
     protected $attributes = [
         'name' => 'users',
+        'description' => 'List of Users',
     ];
 
     /**
