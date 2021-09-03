@@ -37,6 +37,23 @@ class UsersQuery extends Query
     }
 
     /**
+     * @return array
+     */
+    public function args(): array
+    {
+        return [
+            'limit' => [
+                'name' => 'limit',
+                'type' => Type::int(),
+            ],
+            'page' => [
+                'name' => 'page',
+                'type' => Type::int(),
+            ],
+        ];
+    }
+
+    /**
      * @param $root
      * @param array $args
      * @param $context
