@@ -44,4 +44,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function boards()
+    {
+        return $this->belongsToMany(Board::class, 'board_member', 'user_id', 'board_id')
+            ->as('membership')
+            ->withPivot(['relation'])
+            ->using(BoardMember::class);
+    }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Types;
 
-use App\Models\Project;
+use App\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphqlType;
@@ -13,14 +13,14 @@ use Rebing\GraphQL\Support\Type as GraphqlType;
  * Class ProjectType
  * @package App\Graphql\Types
  */
-class ProjectType extends GraphqlType
+class BoardType extends GraphqlType
 {
     /**
      * @var array
      */
     protected $attributes = [
-        'name' => 'Project',
-        'model' => Project::class,
+        'name' => 'Board',
+        'model' => Board::class,
     ];
 
     /**
@@ -35,12 +35,15 @@ class ProjectType extends GraphqlType
             'name' => [
                 'type' => Type::nonNull(Type::string()),
             ],
+            'description' => [
+                'type' => Type::string(),
+            ],
             'archived' => [
                 'type' => Type::nonNull(Type::boolean()),
             ],
-            'owner' => [
-                'type' => Type::nonNull(GraphQL::type('User')),
-            ]
+            //'owner' => [
+            //    'type' => Type::nonNull(GraphQL::type('User')),
+            //]
         ];
     }
 }

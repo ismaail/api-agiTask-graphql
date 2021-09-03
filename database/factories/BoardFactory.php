@@ -2,21 +2,22 @@
 
 namespace Database\Factories;
 
-use App\Models\Project;
+use App\Models\Board;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * Class ProjectFactory
+ * Class BoardFactory
  * @package Database\Factories
  */
-class ProjectFactory extends Factory
+class BoardFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Project::class;
+    protected $model = Board::class;
 
     /**
      * Define the model's default state.
@@ -26,7 +27,9 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->words(3, true),
+            'name' => Str::title($this->faker->words(3, true)),
+            'description' => $this->faker->sentence(20),
+            'archived' => false,
         ];
     }
 }

@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Project;
+use App\Models\Board;
+use App\Models\BoardMember;
 use Illuminate\Database\Seeder;
 
 /**
@@ -19,14 +20,27 @@ class DatabaseSeeder extends Seeder
     {
         $this->truncateAllTable();
 
-        $users = User::factory(1)->create([
-            'username' => 'jhon-doe',
-            'email' => 'doe@example.com',
-        ]);
+        User
+            ::factory()
+            ->count(1)
+            ->hasAttached(
+                Board::factory()->count(3),
+                ['relation' => BoardMember::RELATION_OWNER],
+                'boards'
+            )
+            ->create([
+                'username' => 'doe',
+                'email' => 'doe@example.com',
+            ]);
 
-        Project::factory(3)->create([
-            'owner_id' => $users[0]->id,
-        ]);
+        Board
+            ::factory()
+            ->count(7)
+            ->hasAttached(
+                User::factory(),
+                ['relation' => BoardMember::RELATION_OWNER],
+                'members',
+            )->create();
     }
 
     /**
@@ -36,7 +50,8 @@ class DatabaseSeeder extends Seeder
     {
         \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        \DB::statement('TRUNCATE TABLE projects');
+        \DB::statement('TRUNCATE TABLE board_member');
+        \DB::statement('TRUNCATE TABLE boards');
         \DB::statement('TRUNCATE TABLE users');
 
         \DB::statement('SET FOREIGN_KEY_CHECKS = 1');
