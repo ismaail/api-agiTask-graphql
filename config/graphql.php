@@ -96,10 +96,7 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                \App\GraphQL\Queries\UserQuery::class,
-
-                \App\GraphQL\Queries\ProjectsQuery::class,
-                \App\GraphQL\Queries\ProjectQuery::class,
+                \App\GraphQL\Queries\UsersQuery::class,
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
@@ -120,7 +117,7 @@ return [
     //
     'types' => [
         \App\GraphQL\Types\UserType::class,
-        \App\GraphQL\Types\ProjectType::class,
+        \App\GraphQL\Types\BoardType::class,
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request
