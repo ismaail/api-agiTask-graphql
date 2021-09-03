@@ -16,6 +16,7 @@ trait PipeFilter
      * @param \Illuminate\Database\Query\Builder $query
      * @param string $name
      * @param array $args
+     * @param callable|null $callback
      */
     private function pipeFilterQuery(QueryBuilder $query, string $name, array $args, callable $callback = null): void
     {
