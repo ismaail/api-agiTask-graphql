@@ -35,14 +35,6 @@ class Board extends Model
         'atchived' => 'boolean',
     ];
 
-    protected static function booted()
-    {
-        static::addGlobalScope('board_member', fn(Builder $builder) => $builder->whereHas(
-            'members',
-            fn(Builder $builder) => $builder->where('id', Auth::user()->id)
-        ));
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
