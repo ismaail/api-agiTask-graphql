@@ -45,10 +45,12 @@ class UsersQuery extends Query
             'limit' => [
                 'name' => 'limit',
                 'type' => Type::int(),
+                'defaultValue' => config('agitask.pagination.per_page'),
             ],
             'page' => [
                 'name' => 'page',
                 'type' => Type::int(),
+                'defaultValue' => 1,
             ],
         ];
     }
@@ -65,12 +67,10 @@ class UsersQuery extends Query
     public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
         $fields = $getSelectFields();
-        $perPage = $args['limit'] ?? config('agitask.pagination.per_page');
-        $page = $args['page'] ?? 1;
 
         return User
             ::with($fields->getRelations())
             ->select($fields->getSelect())
-            ->paginate($perPage, page: $page);
+            ->paginate($args['limit'], page: $args['page']);
     }
 }
