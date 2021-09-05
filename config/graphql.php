@@ -101,6 +101,13 @@ return [
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
             ],
+            'middleware' => ['auth:api'],
+            'method' => ['get', 'post'],
+        ],
+        'auth' => [
+            'mutation' => [
+                \App\GraphQL\Mutations\LoginMutation::class,
+            ],
             'middleware' => [],
             'method' => ['get', 'post'],
         ],
@@ -118,6 +125,7 @@ return [
     'types' => [
         \App\GraphQL\Types\UserType::class,
         \App\GraphQL\Types\BoardType::class,
+        \App\GraphQL\Types\AccessTokenType::class,
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request
