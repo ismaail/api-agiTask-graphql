@@ -104,6 +104,13 @@ return [
             'middleware' => [],
             'method' => ['get', 'post'],
         ],
+        'auth' => [
+            'mutation' => [
+                \App\GraphQL\Mutations\LoginMutation::class,
+            ],
+            'middleware' => [],
+            'method' => ['get', 'post'],
+        ],
     ],
 
     // The types available in the application. You can then access it from the
