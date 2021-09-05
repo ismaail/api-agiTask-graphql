@@ -101,7 +101,7 @@ return [
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
             ],
-            'middleware' => [],
+            'middleware' => ['auth:api'],
             'method' => ['get', 'post'],
         ],
         'auth' => [
