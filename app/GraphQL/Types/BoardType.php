@@ -41,6 +41,9 @@ class BoardType extends GraphqlType
             'archived' => [
                 'type' => Type::nonNull(Type::boolean()),
             ],
+            'members' => [
+                'type' => Type::listOf(GraphQL::type('User')),
+            ],
             'membership' => [
                 'type' => GraphQL::type('BoardMembership'),
                 'selectable' => false,
