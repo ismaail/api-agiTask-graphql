@@ -44,6 +44,11 @@ class UserType extends GraphqlType
             'boards' => [
                 'type' => Type::listOf(GraphQL::type('Board')),
             ],
+            'membership' => [
+                'type' => GraphQL::type('BoardMembership'),
+                'selectable' => false,
+                'resolve' => fn(User $u) => object_get($u, 'membership.relation'), // 'membership' as pivot
+            ],
         ];
     }
 }
