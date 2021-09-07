@@ -41,9 +41,11 @@ class BoardType extends GraphqlType
             'archived' => [
                 'type' => Type::nonNull(Type::boolean()),
             ],
-            //'owner' => [
-            //    'type' => Type::nonNull(GraphQL::type('User')),
-            //]
+            'membership' => [
+                'type' => GraphQL::type('BoardMembership'),
+                'selectable' => false,
+                'resolve' => fn(Board $b) => object_get($b, 'membership.relation'), // 'membership' as pivot
+            ],
         ];
     }
 }

@@ -127,6 +127,8 @@ return [
         \App\GraphQL\Types\UserType::class,
         \App\GraphQL\Types\BoardType::class,
         \App\GraphQL\Types\AccessTokenType::class,
+
+        \App\GraphQL\Enums\BoardMembership::class,
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request
