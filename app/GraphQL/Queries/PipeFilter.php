@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 /**
  * Trait PipeFilter
@@ -13,12 +13,12 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 trait PipeFilter
 {
     /**
-     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $name
      * @param array $args
      * @param callable|null $callback
      */
-    private function pipeFilterQuery(QueryBuilder $query, string $name, array $args, callable $callback = null): void
+    private function filter(QueryBuilder $query, string $name, array $args, callable $callback = null): void
     {
         $value = $args[$name] ?? null;
 
