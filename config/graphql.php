@@ -97,6 +97,8 @@ return [
         'default' => [
             'query' => [
                 \App\GraphQL\Queries\UsersQuery::class,
+                \App\GraphQL\Queries\BoardsQuery::class,
+                \App\GraphQL\Queries\BoardQuery::class,
                 \App\GraphQL\Queries\ProfileQuery::class,
             ],
             'mutation' => [
