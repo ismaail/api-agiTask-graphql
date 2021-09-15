@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Board;
+use App\Models\Bucket;
 use App\Models\BoardMember;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +25,13 @@ class DatabaseSeeder extends Seeder
             ::factory()
             ->count(1)
             ->hasAttached(
-                Board::factory()->count(3),
+                Board
+                    ::factory()
+                    ->count(3)
+                    ->has(
+                        Bucket::factory()->count(3),
+                        'buckets',
+                    ),
                 ['relation' => BoardMember::RELATION_OWNER],
                 'boards'
             )
@@ -40,7 +47,12 @@ class DatabaseSeeder extends Seeder
                 User::factory(),
                 ['relation' => BoardMember::RELATION_OWNER],
                 'members',
-            )->create();
+            )
+            ->has(
+                Bucket::factory()->count(3),
+                'buckets',
+            )
+            ->create();
     }
 
     /**
@@ -51,6 +63,7 @@ class DatabaseSeeder extends Seeder
         \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
         \DB::statement('TRUNCATE TABLE board_member');
+        \DB::statement('TRUNCATE TABLE buckets');
         \DB::statement('TRUNCATE TABLE boards');
         \DB::statement('TRUNCATE TABLE users');
 
