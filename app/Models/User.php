@@ -6,6 +6,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class User
@@ -49,7 +50,7 @@ class User extends Authenticatable implements JWTSubject
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function boards()
+    public function boards(): BelongsToMany
     {
         return $this->belongsToMany(Board::class, 'board_member', 'user_id', 'board_id')
             ->as('membership')

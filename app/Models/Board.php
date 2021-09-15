@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Board
@@ -30,7 +29,7 @@ class Board extends Model
     ];
 
     /**
-     * @var array
+     * @var array<string,string>
      */
     protected $casts = [
         'archived' => 'boolean',
@@ -39,7 +38,7 @@ class Board extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function members()
+    public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'board_member', 'board_id', 'user_id')
             ->as('membership')
@@ -50,7 +49,7 @@ class Board extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function owner()
+    public function owner(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'board_member', 'board_id', 'user_id')
             ->where('relation', BoardMember::RELATION_OWNER)
