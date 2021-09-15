@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -54,5 +55,13 @@ class Board extends Model
         return $this->belongsToMany(User::class, 'board_member', 'board_id', 'user_id')
             ->where('relation', BoardMember::RELATION_OWNER)
             ->using(BoardMember::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function buckets(): HasMany
+    {
+        return $this->hasMany(Bucket::class, 'board_id', 'id');
     }
 }
