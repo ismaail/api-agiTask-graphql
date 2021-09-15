@@ -32,7 +32,7 @@ class Board extends Model
      * @var array
      */
     protected $casts = [
-        'atchived' => 'boolean',
+        'archived' => 'boolean',
     ];
 
     /**
