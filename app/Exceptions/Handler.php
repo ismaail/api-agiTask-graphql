@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Throwable;
+use Rebing\GraphQL\GraphQL;
+use GraphQL\Error\Error as GraphqlError;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 /**
@@ -41,5 +43,28 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \Throwable $e
+     *
+     * @return array[]|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     */
+    public function render($request, Throwable $e)
+    {
+        return $e instanceof GraphqlError
+            ? $this->formatGraphqlError($e)
+            : parent::render($request, $e);
+    }
+
+    /**
+     * @param \Throwable|GraphqlError $error
+     *
+     * @return array
+     */
+    private function formatGraphqlError(Throwable|GraphqlError $error): array
+    {
+        return ['errors' => [GraphQL::formatError($error)]];
     }
 }

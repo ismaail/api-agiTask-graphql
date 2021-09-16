@@ -107,6 +107,13 @@ return [
             'middleware' => ['auth:api'],
             'method' => ['get', 'post'],
         ],
+        'tenant' => [
+            'query' => [
+                \App\GraphQL\Queries\BucketsQuery::class,
+            ],
+            'middleware' => ['auth:api', 'tenant'],
+            'method' => ['get', 'post'],
+        ],
         'auth' => [
             'mutation' => [
                 \App\GraphQL\Mutations\LoginMutation::class,
@@ -128,6 +135,7 @@ return [
     'types' => [
         \App\GraphQL\Types\UserType::class,
         \App\GraphQL\Types\BoardType::class,
+        \App\GraphQL\Types\BucketType::class,
         \App\GraphQL\Types\AccessTokenType::class,
 
         \App\GraphQL\Enums\BoardMembership::class,
