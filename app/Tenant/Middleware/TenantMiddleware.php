@@ -6,7 +6,7 @@ use Closure;
 use App\Models\Board;
 use Illuminate\Http\Request;
 use App\Tenant\TenantManager;
-use App\Exceptions\TenantException;
+use App\Tenant\Exceptions\TenantException;
 
 /**
  * Class TenantMiddleware
@@ -38,7 +38,7 @@ class TenantMiddleware
      *
      * @return \App\Models\Board
      *
-     * @throws \App\Exceptions\TenantException
+     * @throws \App\Tenant\Exceptions\TenantException
      */
     private function resolveTenant(?int $tenantId): Board
     {
