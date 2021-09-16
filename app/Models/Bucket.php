@@ -53,6 +53,6 @@ class Bucket extends Model
      */
     public function board(): BelongsTo
     {
-        return $this->belongsTo(Board::class, 'board_id', 'id');
+        return $this->belongsTo(Board::class, 'tenant_id', 'id');
     }
 }
