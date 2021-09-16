@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -35,6 +37,17 @@ class Board extends Model
     protected $casts = [
         'archived' => 'boolean',
     ];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope(
+            'board_member',
+            fn(Builder $q) => $q->whereRelation('members', 'id', '=', Auth::user()->id)
+        );
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
