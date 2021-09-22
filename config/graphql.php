@@ -97,7 +97,7 @@ return [
         ],
         'auth' => [
             'mutation' => [
-                \App\GraphQL\Mutations\LoginMutation::class,
+                \App\GraphQL\Schemas\Auth\Mutations\LoginMutation::class,
             ],
             'middleware' => [],
             'method' => ['GET', 'POST'],
