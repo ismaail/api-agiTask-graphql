@@ -77,10 +77,10 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                \App\GraphQL\Queries\UsersQuery::class,
-                \App\GraphQL\Queries\BoardsQuery::class,
-                \App\GraphQL\Queries\BoardQuery::class,
-                \App\GraphQL\Queries\ProfileQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\UsersQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\BoardsQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\BoardQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\ProfileQuery::class,
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,

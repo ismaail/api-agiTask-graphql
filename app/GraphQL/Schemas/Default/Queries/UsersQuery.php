@@ -2,32 +2,30 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Schemas\Default\Queries;
 
 use Closure;
-use App\Models\Board;
+use App\Models\User;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
-use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
- * Class BoardsQuery
+ * Class UserQuery
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ *
  */
-class BoardsQuery extends Query
+class UsersQuery extends Query
 {
-    use PipeFilter;
-
     /**
-     * @var string[]
+     * @var array
      */
     protected $attributes = [
-        'name' => 'boards',
-        'description' => 'List all Boards with pagination'
+        'name' => 'users',
+        'description' => 'List of Users',
     ];
 
     /**
@@ -35,51 +33,44 @@ class BoardsQuery extends Query
      */
     public function type(): Type
     {
-        return GraphQL::paginate(GraphQL::type('Board'));
+        return GraphQL::paginate(GraphQL::type('User'));
     }
 
     /**
-     * @return array[]
+     * @return array
      */
     public function args(): array
     {
         return [
             'limit' => [
+                'name' => 'limit',
                 'type' => Type::int(),
                 'defaultValue' => config('agitask.pagination.per_page'),
             ],
             'page' => [
+                'name' => 'page',
                 'type' => Type::int(),
                 'defaultValue' => 1,
-            ],
-            'archived' => [
-                'type' => Type::boolean(),
             ],
         ];
     }
 
     /**
      * @param $root
-     * @param $args
+     * @param array $args
      * @param $context
-     * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
+     * @param \GraphQL\Type\Definition\ResolveInfo $info
      * @param \Closure $getSelectFields
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
+    public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
     {
-        /** @var SelectFields $fields */
         $fields = $getSelectFields();
-        $select = $fields->getSelect();
-        $with = $fields->getRelations();
 
-        $query = Board
-            ::with($with)
-            ->select($select);
-
-        $this->filter($query, 'archived', $args);
-
-        return $query->paginate($args['limit'], page: $args['page']);
+        return User
+            ::with($fields->getRelations())
+            ->select($fields->getSelect())
+            ->paginate($args['limit'], page: $args['page']);
     }
 }
