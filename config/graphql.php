@@ -90,7 +90,7 @@ return [
         ],
         'tenant' => [
             'query' => [
-                \App\GraphQL\Queries\BucketsQuery::class,
+                \App\GraphQL\Schemas\Tenant\Queries\BucketsQuery::class,
             ],
             'middleware' => ['auth:api', 'tenant'],
             'method' => ['GET', 'POST'],
