@@ -6,21 +6,22 @@ PWD := $(dir $(MAKEPATH))
 CONTAINER_FPM := "api-agitask_fpm"
 CONTAINER_NGINX := "api-agitask_web"
 UID := 1000
+COMPOSE_PROJECT_NAME := "api-agitasks"
 
 up:
-	docker-compose up -d
+	docker-compose -p $(COMPOSE_PROJECT_NAME) up -d
 
 start:
-	docker-compose start
+	docker-compose -p $(COMPOSE_PROJECT_NAME) start
 
 stop:
-	docker-compose stop
+	docker-compose -p $(COMPOSE_PROJECT_NAME) stop
 
 down:
-	docker-compose down
+	docker-compose -p $(COMPOSE_PROJECT_NAME) down
 
 reboot:
-	docker-compose down && docker-compose up -d
+	docker-compose -p $(COMPOSE_PROJECT_NAME) down && docker-compose -p $(COMPOSE_PROJECT_NAME) up -d
 
 cmd=""
 artisan:
