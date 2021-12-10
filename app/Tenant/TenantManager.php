@@ -18,7 +18,7 @@ class TenantManager
     /**
      * @return \App\Models\Board
      */
-    public function getTenant()
+    public function getTenant(): Board
     {
         return $this->tenant;
     }
@@ -26,7 +26,7 @@ class TenantManager
     /**
      * @param \App\Models\Board $tenant
      */
-    public function setTenant(Board $tenant)
+    public function setTenant(Board $tenant): void
     {
         $this->tenant = $tenant;
     }

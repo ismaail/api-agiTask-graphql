@@ -5,7 +5,8 @@ namespace App\Exceptions;
 use GraphQL\Error\Error;
 
 /**
- * Class AuthenticationError
+ * class AuthenticationError
+ * @package App\Exceptions
  */
 class AuthenticationError extends Error
 {

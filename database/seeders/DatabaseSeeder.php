@@ -7,6 +7,7 @@ use App\Models\Board;
 use App\Models\Bucket;
 use App\Models\BoardMember;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class DatabaseSeeder
@@ -60,13 +61,13 @@ class DatabaseSeeder extends Seeder
      */
     private function truncateAllTable(): void
     {
-        \DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        \DB::statement('TRUNCATE TABLE board_member');
-        \DB::statement('TRUNCATE TABLE buckets');
-        \DB::statement('TRUNCATE TABLE boards');
-        \DB::statement('TRUNCATE TABLE users');
+        DB::statement('TRUNCATE TABLE board_member');
+        DB::statement('TRUNCATE TABLE buckets');
+        DB::statement('TRUNCATE TABLE boards');
+        DB::statement('TRUNCATE TABLE users');
 
-        \DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
