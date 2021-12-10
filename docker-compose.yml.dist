@@ -29,7 +29,7 @@ services:
 
     fpm:
       container_name: api-agitask_fpm
-      image: ismaail/php:8.0-alpine-fpm-dev
+      image: ismaail/php:8.1-alpine-fpm-dev
       volumes:
         - ".:/home/docker:rw"
         - "/home/ismaail/.cache/composer:/home/www-data/.composer/cache"
