@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tenant\Scopes;
 
 use App\Tenant\TenantManager;
