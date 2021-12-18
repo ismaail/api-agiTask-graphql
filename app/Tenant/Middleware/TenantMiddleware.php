@@ -26,7 +26,7 @@ class TenantMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $tenant = $this->resolveTenant($request->header('x-tenant-id'));
+        $tenant = $this->resolveTenant((int)$request->header('x-tenant-id'));
 
         /** @var \App\Tenant\TenantManager $tenantManager */
         $tenantManager = app(TenantManager::class);
