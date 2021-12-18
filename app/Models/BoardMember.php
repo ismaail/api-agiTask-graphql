@@ -12,15 +12,15 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class BoardMember extends Pivot
 {
-    /**#@+
-     * @const int
-     */
-    public const RELATION_OWNER = 1;
-    public const RELATION_GUEST = 2;
-    /**#@-*/
-
     /**
      * @var string
      */
     protected $table = 'board_member';
+
+    /**
+     * @var array<string,string>
+     */
+    protected $casts = [
+        'relation' => BoardMemberRelation::class,
+    ];
 }

@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Board;
 use App\Models\Bucket;
-use App\Models\BoardMember;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\BoardMemberRelation;
 
 /**
  * Class DatabaseSeeder
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                         Bucket::factory()->count(3),
                         'buckets',
                     ),
-                ['relation' => BoardMember::RELATION_OWNER],
+                ['relation' => BoardMemberRelation::OWNER],
                 'boards'
             )
             ->create([
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             ->count(7)
             ->hasAttached(
                 User::factory(),
-                ['relation' => BoardMember::RELATION_OWNER],
+                ['relation' => BoardMemberRelation::OWNER],
                 'members',
             )
             ->has(

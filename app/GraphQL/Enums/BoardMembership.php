@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Enums;
 
-use App\Models\BoardMember;
+use App\Models\BoardMemberRelation;
 use Rebing\GraphQL\Support\EnumType;
 
 /**
@@ -21,10 +21,10 @@ class BoardMembership extends EnumType
         'description' => 'Board Membership Enum',
         'values' => [
             'OWNER' => [
-                'value' => BoardMember::RELATION_OWNER,
+                'value' => BoardMemberRelation::OWNER,
             ],
             'GUEST' => [
-                'value' => BoardMember::RELATION_GUEST,
+                'value' => BoardMemberRelation::GUEST,
             ],
         ],
     ];

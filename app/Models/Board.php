@@ -68,7 +68,7 @@ class Board extends Model
     public function owner(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'board_member', 'board_id', 'user_id')
-            ->where('relation', BoardMember::RELATION_OWNER)
+            ->where('relation', BoardMemberRelation::OWNER)
             ->using(BoardMember::class);
     }
 
