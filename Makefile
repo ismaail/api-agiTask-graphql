@@ -3,8 +3,8 @@
 # Set dir of Makefile to a variable to use later
 MAKEPATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 PWD := $(dir $(MAKEPATH))
-CONTAINER_FPM := "api-agitask_fpm"
-CONTAINER_NGINX := "api-agitask_web"
+CONTAINER_FPM := "api_agitask_fpm"
+CONTAINER_NGINX := "api_agitask_web"
 UID := 1000
 COMPOSE_PROJECT_NAME := "api-agitasks"
 
@@ -27,6 +27,17 @@ cmd=""
 artisan:
 	docker exec -it \
 		-u $(UID) \
+		$(CONTAINER_FPM) \
+		php artisan $(cmd) -vvv \
+		2>/dev/null || true
+
+cmd=""
+host?="127.0.0.1"
+artisan-debug:
+	docker exec -it \
+		-u $(UID) \
+		-e XDEBUG_CONFIG="mode=debug client_host=$(host) client_port=9000 start_with_request=yes" \
+		-e PHP_IDE_CONFIG="serverName=localhost" \
 		$(CONTAINER_FPM) \
 		php artisan $(cmd) -vvv \
 		2>/dev/null || true
@@ -65,7 +76,17 @@ tests:
 	docker exec -it \
 		-u $(UID) \
 		$(CONTAINER_FPM) \
-		php ./bin/phpunit --do-not-cache-result \
+		php ./vendor/bin/phpunit --do-not-cache-result \
+		2>/dev/null || true
+
+host?="127.0.0.1"
+tests-failing:
+	docker exec -it \
+		-u $(UID) \
+		-e XDEBUG_CONFIG="mode=debug client_host=$(host) client_port=9000 start_with_request=yes" \
+		-e PHP_IDE_CONFIG="serverName=localhost" \
+		$(CONTAINER_FPM) \
+		php ./vendor/bin/phpunit --do-not-cache-result --group=failing \
 		2>/dev/null || true
 
 fix-permissions:
