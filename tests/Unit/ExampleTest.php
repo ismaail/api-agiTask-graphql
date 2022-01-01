@@ -4,14 +4,19 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class ExampleTest
+ * @package Tests\Unit
+ *
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+ */
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @test
      */
-    public function testBasicTest()
+    public function BasicTest()
     {
         $this->assertTrue(true);
     }
