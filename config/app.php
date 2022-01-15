@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
 
-        App\Providers\TenantServiceProvider::class,
+        \App\Tenant\TenantServiceProvider::class,
     ],
 
     /*

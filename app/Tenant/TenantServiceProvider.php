@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Providers;
+namespace App\Tenant;
 
-use App\Tenant\TenantManager;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
