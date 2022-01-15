@@ -34,7 +34,7 @@ class TenantScope implements Scope
     {
         $builder->where(
             $this->tenantManager->getPrimaryKey(),
-            $this->tenantManager->getTenant()->id
+            $this->tenantManager->getTenant()->getTenantId(),
         );
     }
 }
