@@ -8,6 +8,7 @@ use Closure;
 use App\Models\Board;
 use Illuminate\Http\Request;
 use App\Tenant\TenantManager;
+use Illuminate\Http\JsonResponse;
 use App\Tenant\Exceptions\TenantException;
 
 /**
@@ -22,9 +23,9 @@ class TenantMiddleware
      * @param \Illuminate\Http\Request $request
      * @param \Closure $next
      *
-     * @return mixed
+     * @return \Illuminate\Http\Request|\Illuminate\Http\JsonResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Request|JsonResponse
     {
         $tenant = $this->resolveTenant((int)$request->header('x-tenant-id'));
 
