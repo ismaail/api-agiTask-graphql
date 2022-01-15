@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Tenant\Middleware;
 
 use Closure;
-use App\Models\Board;
 use Illuminate\Http\Request;
 use App\Tenant\TenantManager;
 use Illuminate\Http\JsonResponse;
+use App\Tenant\Models\TenantModel;
 use App\Tenant\Exceptions\TenantException;
 
 /**
@@ -37,15 +37,16 @@ class TenantMiddleware
     }
 
     /**
-     * @param int|null $tenantId
+     * @param int $tenantId
      *
-     * @return \App\Models\Board
+     * @return \App\Tenant\Models\TenantModel
      *
      * @throws \App\Tenant\Exceptions\TenantException
      */
-    private function resolveTenant(?int $tenantId): Board
+    private function resolveTenant(int $tenantId): TenantModel
     {
-        $tenant = Board::find($tenantId);
+        $modelClass = config('tenant.base_model');
+        $tenant = app()->make($modelClass)::find($tenantId);
 
         if (! $tenant) {
             throw new TenantException('No Tenant provided');
