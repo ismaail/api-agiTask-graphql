@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class TenantScope
- * @package App\Models
+ * @package App\Tenant\Scopes
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
