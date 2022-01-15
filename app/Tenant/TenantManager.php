@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tenant;
 
-use App\Models\Board;
+use App\Tenant\Models\TenantModel;
 
 /**
  * Class Manager
@@ -13,22 +13,22 @@ use App\Models\Board;
 class TenantManager
 {
     /**
-     * @var \App\Models\Board
+     * @var \App\Tenant\Models\TenantModel
      */
-    private Board $tenant;
+    private TenantModel $tenant;
 
     /**
-     * @return \App\Models\Board
+     * @return \App\Tenant\Models\TenantModel
      */
-    public function getTenant(): Board
+    public function getTenant(): TenantModel
     {
         return $this->tenant;
     }
 
     /**
-     * @param \App\Models\Board $tenant
+     * @param \App\Tenant\Models\TenantModel $tenant
      */
-    public function setTenant(Board $tenant): void
+    public function setTenant(TenantModel $tenant): void
     {
         $this->tenant = $tenant;
     }
