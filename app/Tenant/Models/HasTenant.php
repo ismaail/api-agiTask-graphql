@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tenant\Models;
 
 use App\Tenant\TenantManager;
-use App\Tenant\Scopes\TenantScope;
 
 /**
  * Trait HasTenant
