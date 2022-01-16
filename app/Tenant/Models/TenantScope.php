@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tenant\Scopes;
+namespace App\Tenant\Models;
 
 use App\Tenant\TenantManager;
 use Illuminate\Database\Eloquent\Scope;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class TenantScope
- * @package App\Models
+ * @package App\Tenant\Models
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
@@ -34,7 +34,7 @@ class TenantScope implements Scope
     {
         $builder->where(
             $this->tenantManager->getPrimaryKey(),
-            $this->tenantManager->getTenant()->id
+            $this->tenantManager->getTenant()->getTenantId(),
         );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Tenant\Models\TenantModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class Board
  * @package App\Models
  */
-class Board extends Model
+class Board extends Model implements TenantModel
 {
     use HasFactory;
 
@@ -78,5 +79,13 @@ class Board extends Model
     public function buckets(): HasMany
     {
         return $this->hasMany(Bucket::class, 'tenant_id', 'id');
+    }
+
+    /**
+     * @return int
+     */
+    public function getTenantId(): int
+    {
+        return $this->getAttribute('id');
     }
 }
