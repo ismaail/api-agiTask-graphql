@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class TenantProvider
- * @package App\Providers
+ * @package App\Tenant
  */
 class TenantServiceProvider extends ServiceProvider
 {
