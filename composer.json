@@ -1,10 +1,14 @@
 {
     "name": "ismaail/api-agitask",
     "type": "project",
-    "description": "API AgiTask",
+    "description": "API AgiTask - task management via graphql api with tenant.",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+			  "tenant",
+			  "graphql",
+			  "agility",
+			  "tasks"
     ],
     "license": "MIT",
     "require": {
