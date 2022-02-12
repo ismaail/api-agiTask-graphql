@@ -8,6 +8,8 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 /**
  * Class Kernel
  * @package App\Console
+ *
+ * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
 class Kernel extends ConsoleKernel
 {
