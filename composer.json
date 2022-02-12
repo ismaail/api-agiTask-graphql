@@ -5,29 +5,30 @@
     "keywords": [
         "framework",
         "laravel",
-			  "tenant",
-			  "graphql",
-			  "agility",
-			  "tasks"
+        "tenant",
+        "graphql",
+        "agility",
+        "tasks"
     ],
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.12",
+        "fruitcake/laravel-cors": "^2.0.5",
+        "guzzlehttp/guzzle": "^7.2",
+        "laravel/framework": "^9.0",
         "laravel/telescope": "^4.6",
-        "laravel/tinker": "^2.5",
-        "rebing/graphql-laravel": "^6.3"
+        "laravel/sanctum": "^2.14",
+        "laravel/tinker": "^2.7",
+        "php-open-source-saver/jwt-auth": "^1.4",
+        "rebing/graphql-laravel": "^8.2.1"
     },
     "require-dev": {
-        "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "nunomaduro/collision": "^6.0",
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -60,6 +61,9 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
