@@ -3,57 +3,39 @@
 declare(strict_types=1);
 
 return [
+    'route' => [
+        // The prefix for routes; do NOT use a leading slash!
+        'prefix' => 'graphql',
+
+        // The controller/method to use in GraphQL request.
+        'controller' => \Rebing\GraphQL\GraphQLController::class . '@query',
+
+        // Any middleware for the graphql route group
+        // This middleware will apply to all schemas
+        'middleware' => [],
+
+        // Additional route group attributes
+        //
+        // Example:
+        //
+        // 'group_attributes' => ['guard' => 'api']
+        //
+        'group_attributes' => [],
+    ],
+
+    // The name of the default schema
+    // Used when the route group is directly accessed
+    'default_schema' => 'default',
 
     // The prefix for routes
     'prefix' => 'graphql',
 
-    // The routes to make GraphQL request. Either a string that will apply
-    // to both query and mutation or an array containing the key 'query' and/or
-    // 'mutation' with the according Route
-    //
-    // Example:
-    //
-    // Same route for both query and mutation
-    //
-    // 'routes' => 'path/to/query/{graphql_schema?}',
-    //
-    // or define each route
-    //
-    // 'routes' => [
-    //     'query' => 'query/{graphql_schema?}',
-    //     'mutation' => 'mutation/{graphql_schema?}',
-    // ]
-    //
-    'routes' => '{graphql_schema?}',
-
-    // The controller to use in GraphQL request. Either a string that will apply
-    // to both query and mutation or an array containing the key 'query' and/or
-    // 'mutation' with the according Controller and method
-    //
-    // Example:
-    //
-    // 'controllers' => [
-    //     'query' => '\Rebing\GraphQL\GraphQLController@query',
-    //     'mutation' => '\Rebing\GraphQL\GraphQLController@mutation'
-    // ]
-    //
-    'controllers' => \Rebing\GraphQL\GraphQLController::class . '@query',
-
-    // Any middleware for the graphql route group
-    'middleware' => [],
-
-    // Additional route group attributes
-    //
-    // Example:
-    //
-    // 'route_group_attributes' => ['guard' => 'api']
-    //
-    'route_group_attributes' => [],
-
-    // The name of the default schema used when no argument is provided
-    // to GraphQL::schema() or when the route is used without the graphql_schema
-    // parameter.
-    'default_schema' => 'default',
+    'batching' => [
+        // Whether to support GraphQL batching or not.
+        // See e.g. https://www.apollographql.com/blog/batching-client-graphql-queries-a685f5bcd41b/
+        // for pro and con
+        'enable' => true,
+    ],
 
     // The schemas for query and/or mutation. It expects an array of schemas to provide
     // both the 'query' fields and the 'mutation' fields.
@@ -62,12 +44,11 @@ return [
     //
     // Example:
     //
-    //  'schema' => 'default',
-    //
     //  'schemas' => [
     //      'default' => [
+    //          'controller' => MyController::class . '@method',
     //          'query' => [
-    //              'users' => 'App\GraphQL\Query\UsersQuery'
+    //              App\GraphQL\Queries\UsersQuery::class,
     //          ],
     //          'mutation' => [
     //
@@ -75,7 +56,7 @@ return [
     //      ],
     //      'user' => [
     //          'query' => [
-    //              'profile' => 'App\GraphQL\Query\ProfileQuery'
+    //              App\GraphQL\Queries\ProfileQuery::class,
     //          ],
     //          'mutation' => [
     //
@@ -84,7 +65,7 @@ return [
     //      ],
     //      'user/me' => [
     //          'query' => [
-    //              'profile' => 'App\GraphQL\Query\MyProfileQuery'
+    //              App\GraphQL\Queries\MyProfileQuery::class,
     //          ],
     //          'mutation' => [
     //
@@ -105,31 +86,31 @@ return [
                 // 'example_mutation'  => ExampleMutation::class,
             ],
             'middleware' => ['auth:api'],
-            'method' => ['get', 'post'],
+            'method' => ['GET', 'POST'],
         ],
         'tenant' => [
             'query' => [
                 \App\GraphQL\Queries\BucketsQuery::class,
             ],
             'middleware' => ['auth:api', 'tenant'],
-            'method' => ['get', 'post'],
+            'method' => ['GET', 'POST'],
         ],
         'auth' => [
             'mutation' => [
                 \App\GraphQL\Mutations\LoginMutation::class,
             ],
             'middleware' => [],
-            'method' => ['get', 'post'],
+            'method' => ['GET', 'POST'],
         ],
     ],
 
-    // The types available in the application. You can then access it from the
-    // facade like this: GraphQL::type('user')
+    /// The global types available to all schemas.
+    // You can then access it from the facade like this: GraphQL::type('user')
     //
     // Example:
     //
     // 'types' => [
-    //     'user' => 'App\GraphQL\Type\UserType'
+    //     App\GraphQL\Types\UserType::class
     // ]
     //
     'types' => [
@@ -144,7 +125,7 @@ return [
     // The types will be loaded on demand. Default is to load all types on each request
     // Can increase performance on schemes with many types
     // Presupposes the config type key to match the type class name property
-    'lazyload_types' => false,
+    'lazyload_types' => true,
 
     // This callable will be passed the Error object for each errors GraphQL catch.
     // The method should return an array representing the error.
@@ -153,7 +134,7 @@ return [
     //     'message' => '',
     //     'locations' => []
     // ]
-    'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],
+    'error_formatter' => [\Rebing\GraphQL\GraphQL::class, 'formatError'],
 
     /*
      * Custom Error Handling
@@ -162,10 +143,7 @@ return [
      *
      * The default handler will pass exceptions to laravel Error Handling mechanism
      */
-    'errors_handler' => ['\Rebing\GraphQL\GraphQL', 'handleErrors'],
-
-    // You can set the key, which will be used to retrieve the dynamic variables
-    'params_key' => 'variables',
+    'errors_handler' => [\Rebing\GraphQL\GraphQL::class, 'handleErrors'],
 
     /*
      * Options to limit the query complexity and depth. See the doc
@@ -185,10 +163,16 @@ return [
     'pagination_type' => \Rebing\GraphQL\Support\PaginationType::class,
 
     /*
+     * You can define your own simple pagination type.
+     * Reference \Rebing\GraphQL\Support\SimplePaginationType::class
+     */
+    'simple_pagination_type' => \Rebing\GraphQL\Support\SimplePaginationType::class,
+
+    /*
      * Config for GraphiQL (see (https://github.com/graphql/graphiql).
      */
     'graphiql' => [
-        'prefix' => '/graphiql',
+        'prefix' => 'graphiql', // Do NOT use a leading slash
         'controller' => \Rebing\GraphQL\GraphQLController::class . '@graphiql',
         'middleware' => [],
         'view' => 'graphql::graphiql',
@@ -222,4 +206,39 @@ return [
      * See http://php.net/manual/function.json-encode.php for the full list of options
      */
     'json_encoding_options' => 0,
+
+    /*
+     * Automatic Persisted Queries (APQ)
+     * See https://www.apollographql.com/docs/apollo-server/performance/apq/
+     *
+     * Note 1: this requires the `AutomaticPersistedQueriesMiddleware` being enabled
+     *
+     * Note 2: even if APQ is disabled per configuration and, according to the "APQ specs" (see above),
+     *         to return a correct response in case it's not enabled, the middleware needs to be active.
+     *         Of course if you know you do not have a need for APQ, feel free to remove the middleware completely.
+     */
+    'apq' => [
+        // Enable/Disable APQ - See https://www.apollographql.com/docs/apollo-server/performance/apq/#disabling-apq
+        'enable' => env('GRAPHQL_APQ_ENABLE', false),
+
+        // The cache driver used for APQ
+        'cache_driver' => env('GRAPHQL_APQ_CACHE_DRIVER', config('cache.default')),
+
+        // The cache prefix
+        'cache_prefix' => config('cache.prefix') . ':graphql.apq',
+
+        // The cache ttl in seconds
+        'cache_ttl' => 300,
+    ],
+
+    /*
+    * Execution middlewares
+    */
+    'execution_middleware' => [
+        \Rebing\GraphQL\Support\ExecutionMiddleware\ValidateOperationParamsMiddleware::class,
+        // AutomaticPersistedQueriesMiddleware listed even if APQ is disabled, see the docs for configuration
+        \Rebing\GraphQL\Support\ExecutionMiddleware\AutomaticPersistedQueriesMiddleware::class,
+        \Rebing\GraphQL\Support\ExecutionMiddleware\AddAuthUserContextValueMiddleware::class,
+        // \Rebing\GraphQL\Support\ExecutionMiddleware\UnusedVariablesMiddleware::class,
+    ],
 ];

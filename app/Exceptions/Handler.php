@@ -10,6 +10,8 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 /**
  * Class Handler
  * @package App\Exceptions
+ *
+ * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
 class Handler extends ExceptionHandler
 {

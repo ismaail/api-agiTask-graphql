@@ -66,7 +66,7 @@ class LoginMutation extends Mutation
             'password' => $args['password'],
         ];
 
-        /** @var \Tymon\JWTAuth\JWTGuard $authGuard */
+        /** @var \PHPOpenSourceSaver\JWTAuth\JWTGuard $authGuard */
         $authGuard = Auth::guard('api');
         $token = $authGuard->attempt($credentials);
 
