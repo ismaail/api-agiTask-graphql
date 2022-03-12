@@ -1,65 +1,88 @@
 version: "3.8"
 
 services:
-    api_agitask_database:
-        container_name: api_agitask_database
-        image: mysql:8.0
-        command: --default-authentication-plugin=mysql_native_password
-        env_file: ./.docker/mysql/.env
-        volumes:
-            - api-agitask-data-mysql:/var/lib/mysql
+  database:
+    container_name: api_agitask_database
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./.docker/mysql/.env
+    volumes:
+      - "api-agitask-data-mysql:/var/lib/mysql"
+    networks:
+      - agitasks
 
-    api_agitask_wwwsqldesigner:
-        container_name: api_agitask_wwwsqldesigner
-        image: ismaail/wwwsqldesigner
-        ports:
-            - "8000:80"
-        links:
-            - api_agitask_database
-        depends_on:
-            - api_agitask_database
-        environment:
-            - IMPORT_DB_HOST=api_agitask_database
-            - IMPORT_DB_USER=root
-            - IMPORT_DB_PASSWORD=docker
-            - SAVE_DB_HOST=api_agitask_database
-            - SAVE_DB_USER=docker
-            - SAVE_DB_PASSWORD=docker
-            - SAVE_DB_DATABASE=agitasks
+  wwwsqldesigner:
+    container_name: api_agitask_wwwsqldesigner
+    image: ismaail/wwwsqldesigner
+    networks:
+      - agitasks
+    ports:
+      - "8000:80"
+    links:
+      - database
+    depends_on:
+      - database
+    environment:
+      - IMPORT_DB_HOST=database
+      - IMPORT_DB_USER=root
+      - IMPORT_DB_PASSWORD=docker
+      - SAVE_DB_HOST=database
+      - SAVE_DB_USER=docker
+      - SAVE_DB_PASSWORD=docker
+      - SAVE_DB_DATABASE=agitasks
 
-    api_agitask_fpm:
-        container_name: api_agitask_fpm
-        image: ismaail/php:8.1-alpine-fpm-dev
-        volumes:
-            - ".:/home/docker:rw"
-            - "/home/ismaail/.cache/composer:/home/www-data/.composer/cache"
-        #        - "./docker/php/custom.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro"
-        working_dir: "/home/docker"
-        links:
-            - api_agitask_database
-        depends_on:
-            - api_agitask_database
+  fpm:
+    container_name: api_agitask_fpm
+    image: ismaail/php:8.1-alpine-fpm-dev
+    volumes:
+      - ".:/home/docker:rw"
+      - "/home/ismaail/.cache/composer:/home/www-data/.composer/cache"
+    #      - "./docker/php/custom.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro"
+    working_dir: "/home/docker"
+    networks:
+      - agitasks
+    links:
+      - database
+    depends_on:
+      - database
 
-    api_agitask_web:
-        container_name: api_agitask_web
-        image: nginx:latest
-        volumes:
-            - ".:/home/docker"
-            - "./.docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro"
-        env_file: ./.docker/nginx/.env
-        links:
-            - fpm
-        depends_on:
-            - fpm
+  api_agitask_web:
+    container_name: api_agitask_web
+    image: nginx:alpine
+    volumes:
+      - ".:/home/docker"
+      - "./.docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro"
+    #    env_file: ./.docker/nginx/.env
+    networks:
+      - proxy
+      - agitasks
+    links:
+      - fpm
+    depends_on:
+      - fpm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      # http
+      - "traefik.http.routers.api_agitasks.entrypoints=http"
+      - "traefik.http.routers.api_agitasks.rule=Host(`api.agitasks.localhost`)"
+      # https
+      - "traefik.http.routers.api_agitasks-secure.tls=true"
+      - "traefik.http.middlewares.api_agitasks-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.api_agitasks.middlewares=api_agitasks-https-redirect"
+      - "traefik.http.routers.api_agitasks-secure.entrypoints=https"
+      - "traefik.http.routers.api_agitasks-secure.rule=Host(`api.agitasks.localhost`)"
 
 #
 # Volumes definition
 #
 volumes:
-    api-agitask-data-mysql:
-        driver: local
-        name: agitasks-mysql
+  api-agitask-data-mysql:
+    driver: local
+    name: agitasks-mysql
 
 networks:
-    default:
-        name: nginx_reverse_proxy_network
+  proxy:
+    external: true
+  agitasks:
+    name: agitasks
