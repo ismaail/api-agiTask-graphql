@@ -19,7 +19,13 @@ class TenantMiddleware
 {
     public function handle(Request $request, Closure $next): Request|JsonResponse
     {
-        $tenant = $this->resolveTenant((int)$request->header('x-tenant-id'));
+        $tenantHeader = (int)$request->header('x-tenant-id');
+
+        if (! $tenantHeader) {
+            throw new TenantException('No X-TENANT-ID request header is provided');
+        }
+
+        $tenant = $this->resolveTenant($tenantHeader);
 
         /** @var \App\Tenant\TenantManager $tenantManager */
         $tenantManager = app(TenantManager::class);
@@ -41,7 +47,7 @@ class TenantMiddleware
         $tenant = app()->make($modelClass)::find($tenantId);
 
         if (! $tenant) {
-            throw new TenantException('No Tenant provided');
+            throw new TenantException('Tenant not found');
         }
 
         return $tenant;
