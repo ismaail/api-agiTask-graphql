@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Schemas\Default\Queries;
 
 use Closure;
+use App\Models\User;
 use App\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
@@ -17,28 +18,26 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ * @phpcs:disable Generic.Files.LineLength.TooLong
  *
  */
 class BoardQuery extends Query
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'board',
         'description' => 'Find single Board by ID.',
     ];
 
-    /**
-     * @return \GraphQL\Type\Definition\Type
-     */
     public function type(): Type
     {
         return GraphQL::type('Board');
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<string, \GraphQL\Type\Definition\ScalarType>>
      */
     public function args(): array
     {
@@ -49,16 +48,7 @@ class BoardQuery extends Query
         ];
     }
 
-    /**
-     * @param $root
-     * @param $args
-     * @param $context
-     * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
-     * @param \Closure $getSelectFields
-     *
-     * @return \App\Models\Board|null
-     */
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields): ?Board
+    public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): ?Board
     {
         /** @var SelectFields $fields */
         $fields = $getSelectFields();

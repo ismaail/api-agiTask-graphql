@@ -14,7 +14,7 @@ use Rebing\GraphQL\Support\EnumType;
 class BoardMembership extends EnumType
 {
     /**
-     * @var array
+     * @var array<string, string|array>
      */
     protected $attributes = [
         'name' => 'BoardMembership',

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Schemas\Tenant\Queries;
 
 use Closure;
+use App\Models\User;
 use App\Models\Bucket;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
@@ -12,19 +13,21 @@ use App\GraphQL\Traits\PipeFilter;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class BucketQuery
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ * @phpcs:disable Generic.Files.LineLength.TooLong
  */
 class BucketsQuery extends Query
 {
     use PipeFilter;
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'buckets',
@@ -37,7 +40,7 @@ class BucketsQuery extends Query
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<string, \GraphQL\Type\Definition\ScalarType>>
      */
     public function args(): array
     {
@@ -49,15 +52,15 @@ class BucketsQuery extends Query
     }
 
     /**
-     * @param $root
-     * @param $args
-     * @param $context
+     * @param mixed $root
+     * @param array $args
+     * @param \App\Models\User $context
      * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
      * @param \Closure $getSelectFields
      *
-     * @return \App\Models\Bucket[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bucket>
      */
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
+    public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): Collection
     {
         /** @var SelectFields $fields */
         $fields = $getSelectFields();
@@ -68,7 +71,7 @@ class BucketsQuery extends Query
             ::with($with)
             ->select($select);
 
-        $this->filter($query, 'archived', $args);
+        $this->filter($query, name: 'archived', args: $args);
 
         return $query->get();
     }

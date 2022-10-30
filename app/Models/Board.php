@@ -26,7 +26,7 @@ class Board extends Model implements TenantModel
     protected $table = 'boards';
 
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -52,9 +52,6 @@ class Board extends Model implements TenantModel
         );
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'board_member', 'board_id', 'user_id')
@@ -63,9 +60,6 @@ class Board extends Model implements TenantModel
             ->using(BoardMember::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function owner(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'board_member', 'board_id', 'user_id')
@@ -73,17 +67,11 @@ class Board extends Model implements TenantModel
             ->using(BoardMember::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function buckets(): HasMany
     {
         return $this->hasMany(Bucket::class, 'tenant_id', 'id');
     }
 
-    /**
-     * @return int
-     */
     public function getTenantId(): int
     {
         return $this->getAttribute('id');

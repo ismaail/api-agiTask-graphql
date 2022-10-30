@@ -18,36 +18,24 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- *
+ * @phpcs:disable Generic.Files.LineLength.TooLong
  */
 class ProfileQuery extends Query
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'me',
         'description' => 'User Profile',
     ];
 
-    /**
-     * @return \GraphQL\Type\Definition\Type
-     */
     public function type(): Type
     {
         return Type::nonNull(GraphQL::type('User'));
     }
 
-    /**
-     * @param $root
-     * @param $args
-     * @param $context
-     * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
-     * @param \Closure $getSelectFields
-     *
-     * @return \App\Models\User
-     */
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields): User
+    public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): User
     {
         /** @var SelectFields $fields */
         $fields = $getSelectFields();

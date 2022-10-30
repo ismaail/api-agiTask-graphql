@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Schemas\Default\Queries;
 
 use Closure;
+use App\Models\User;
 use App\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
@@ -12,35 +13,34 @@ use App\GraphQL\Traits\PipeFilter;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class BoardsQuery
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ * @phpcs:disable Generic.Files.LineLength.TooLong
  */
 class BoardsQuery extends Query
 {
     use PipeFilter;
 
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'boards',
         'description' => 'List all Boards with pagination'
     ];
 
-    /**
-     * @return \GraphQL\Type\Definition\Type
-     */
     public function type(): Type
     {
         return GraphQL::paginate(GraphQL::type('Board'));
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<string, \GraphQL\Type\Definition\ScalarType>>
      */
     public function args(): array
     {
@@ -59,16 +59,7 @@ class BoardsQuery extends Query
         ];
     }
 
-    /**
-     * @param $root
-     * @param $args
-     * @param $context
-     * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
-     * @param \Closure $getSelectFields
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
+    public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): LengthAwarePaginator
     {
         /** @var SelectFields $fields */
         $fields = $getSelectFields();

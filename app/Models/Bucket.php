@@ -24,7 +24,7 @@ class Bucket extends Model
     protected $table = 'buckets';
 
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -45,16 +45,13 @@ class Bucket extends Model
     ];
 
     /**
-     * @var string[]
+     * @var array<int, string>
      */
     protected $dates = [
         'starts_at',
         'ends_at',
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function board(): BelongsTo
     {
         return $this->belongsTo(Board::class, 'tenant_id', 'id');

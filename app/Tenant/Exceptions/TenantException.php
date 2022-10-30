@@ -12,17 +12,11 @@ use GraphQL\Error\Error;
  */
 class TenantException extends Error
 {
-    /**
-     * @return bool
-     */
     public function isClientSafe(): bool
     {
         return true;
     }
 
-    /**
-     * @return string
-     */
     public function getCategory(): string
     {
         return 'tenant';

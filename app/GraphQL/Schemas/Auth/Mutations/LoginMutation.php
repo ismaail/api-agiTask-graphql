@@ -19,23 +19,20 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 class LoginMutation extends Mutation
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'login',
         'description' => 'User Login - returns JWT Access Token',
     ];
 
-    /**
-     * @return \GraphQL\Type\Definition\Type
-     */
     public function type(): Type
     {
         return Type::nonNull(GraphQL::type('AccessToken'));
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<string, mixed>>
      */
     public function args(): array
     {
@@ -52,14 +49,14 @@ class LoginMutation extends Mutation
     }
 
     /**
-     * @param $root
-     * @param $args
+     * @param mixed $root
+     * @param array $args
      *
-     * @return array
+     * @return array{token_type: string, access_token: string, expires_in: int}
      *
      * @throws \App\Exceptions\AuthenticationError If Wrong Credentials.
      */
-    public function resolve($root, $args): array
+    public function resolve(mixed $root, array $args): array
     {
         $credentials = [
             'email' => $args['email'],

@@ -17,25 +17,16 @@ class TenantManager
      */
     private TenantModel $tenant;
 
-    /**
-     * @return \App\Tenant\Models\TenantModel
-     */
     public function getTenant(): TenantModel
     {
         return $this->tenant;
     }
 
-    /**
-     * @param \App\Tenant\Models\TenantModel $tenant
-     */
     public function setTenant(TenantModel $tenant): void
     {
         $this->tenant = $tenant;
     }
 
-    /**
-     * @const string
-     */
     public function getPrimaryKey(): string
     {
         return 'tenant_id';

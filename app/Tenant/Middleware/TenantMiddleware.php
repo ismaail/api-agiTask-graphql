@@ -17,14 +17,6 @@ use App\Tenant\Exceptions\TenantException;
  */
 class TenantMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     *
-     * @return \Illuminate\Http\Request|\Illuminate\Http\JsonResponse
-     */
     public function handle(Request $request, Closure $next): Request|JsonResponse
     {
         $tenant = $this->resolveTenant((int)$request->header('x-tenant-id'));

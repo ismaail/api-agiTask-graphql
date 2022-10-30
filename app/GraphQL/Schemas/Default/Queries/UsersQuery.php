@@ -10,34 +10,33 @@ use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\Facades\GraphQL;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class UserQuery
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ * @phpcs:disable Generic.Files.LineLength.TooLong
  *
  */
 class UsersQuery extends Query
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'users',
         'description' => 'List of Users',
     ];
 
-    /**
-     * @return \GraphQL\Type\Definition\Type
-     */
     public function type(): Type
     {
         return GraphQL::paginate(GraphQL::type('User'));
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public function args(): array
     {
@@ -55,16 +54,7 @@ class UsersQuery extends Query
         ];
     }
 
-    /**
-     * @param $root
-     * @param array $args
-     * @param $context
-     * @param \GraphQL\Type\Definition\ResolveInfo $info
-     * @param \Closure $getSelectFields
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function resolve($root, array $args, $context, ResolveInfo $info, Closure $getSelectFields)
+    public function resolve(mixed $root, array $args, User $context, ResolveInfo $info, Closure $getSelectFields): LengthAwarePaginator
     {
         $fields = $getSelectFields();
 

@@ -17,19 +17,10 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class TenantScope implements Scope
 {
-    /**
-     * TenantScope constructor.
-     *
-     * @param \App\Tenant\TenantManager $tenantManager
-     */
     public function __construct(private TenantManager $tenantManager)
     {
     }
 
-    /**
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     * @param \Illuminate\Database\Eloquent\Model $model
-     */
     public function apply(Builder $builder, Model $model): void
     {
         $builder->where(
