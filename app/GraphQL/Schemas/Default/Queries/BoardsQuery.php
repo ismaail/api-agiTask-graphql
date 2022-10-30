@@ -2,37 +2,41 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Schemas\Default\Queries;
 
 use Closure;
-use App\Models\Bucket;
+use App\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
+use App\GraphQL\Traits\PipeFilter;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
- * Class BucketQuery
+ * Class BoardsQuery
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
-class BucketsQuery extends Query
+class BoardsQuery extends Query
 {
     use PipeFilter;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $attributes = [
-        'name' => 'buckets',
-        'description' => "List all Boars's Buckets",
+        'name' => 'boards',
+        'description' => 'List all Boards with pagination'
     ];
 
+    /**
+     * @return \GraphQL\Type\Definition\Type
+     */
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type('Bucket'));
+        return GraphQL::paginate(GraphQL::type('Board'));
     }
 
     /**
@@ -41,6 +45,14 @@ class BucketsQuery extends Query
     public function args(): array
     {
         return [
+            'limit' => [
+                'type' => Type::int(),
+                'defaultValue' => config('agitask.pagination.per_page'),
+            ],
+            'page' => [
+                'type' => Type::int(),
+                'defaultValue' => 1,
+            ],
             'archived' => [
                 'type' => Type::boolean(),
             ],
@@ -54,7 +66,7 @@ class BucketsQuery extends Query
      * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
      * @param \Closure $getSelectFields
      *
-     * @return \App\Models\Bucket[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
@@ -63,12 +75,12 @@ class BucketsQuery extends Query
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        $query = Bucket
+        $query = Board
             ::with($with)
             ->select($select);
 
         $this->filter($query, 'archived', $args);
 
-        return $query->get();
+        return $query->paginate($args['limit'], page: $args['page']);
     }
 }

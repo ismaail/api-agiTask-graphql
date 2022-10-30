@@ -2,39 +2,38 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Schemas\Tenant\Queries;
 
 use Closure;
-use App\Models\Board;
+use App\Models\Bucket;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
+use App\GraphQL\Traits\PipeFilter;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
- * Class BoardQuery
+ * Class BucketQuery
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- *
  */
-class BoardQuery extends Query
+class BucketsQuery extends Query
 {
-    /**
-     * @var string[]
-     */
-    protected $attributes = [
-        'name' => 'board',
-        'description' => 'Find single Board by ID.',
-    ];
+    use PipeFilter;
 
     /**
-     * @return \GraphQL\Type\Definition\Type
+     * @var array
      */
+    protected $attributes = [
+        'name' => 'buckets',
+        'description' => "List all Boars's Buckets",
+    ];
+
     public function type(): Type
     {
-        return GraphQL::type('Board');
+        return Type::listOf(GraphQL::type('Bucket'));
     }
 
     /**
@@ -43,8 +42,8 @@ class BoardQuery extends Query
     public function args(): array
     {
         return [
-            'id' => [
-                'type' => Type::nonNull(Type::id()),
+            'archived' => [
+                'type' => Type::boolean(),
             ],
         ];
     }
@@ -56,19 +55,21 @@ class BoardQuery extends Query
      * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
      * @param \Closure $getSelectFields
      *
-     * @return \App\Models\Board|null
+     * @return \App\Models\Bucket[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields): ?Board
+    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
         /** @var SelectFields $fields */
         $fields = $getSelectFields();
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        return Board
-            ::where('id', $args['id'])
-            ->with($with)
-            ->select($select)
-            ->first();
+        $query = Bucket
+            ::with($with)
+            ->select($select);
+
+        $this->filter($query, 'archived', $args);
+
+        return $query->get();
     }
 }

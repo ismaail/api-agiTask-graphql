@@ -2,32 +2,31 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Schemas\Default\Queries;
 
 use Closure;
-use App\Models\User;
+use App\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
-use Illuminate\Support\Facades\Auth;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
- * Class ProfileQuery
+ * Class BoardQuery
  * @package App\GraphQL\Queries
  *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  *
  */
-class ProfileQuery extends Query
+class BoardQuery extends Query
 {
     /**
      * @var string[]
      */
     protected $attributes = [
-        'name' => 'me',
-        'description' => 'User Profile',
+        'name' => 'board',
+        'description' => 'Find single Board by ID.',
     ];
 
     /**
@@ -35,7 +34,19 @@ class ProfileQuery extends Query
      */
     public function type(): Type
     {
-        return Type::nonNull(GraphQL::type('User'));
+        return GraphQL::type('Board');
+    }
+
+    /**
+     * @return array[]
+     */
+    public function args(): array
+    {
+        return [
+            'id' => [
+                'type' => Type::nonNull(Type::id()),
+            ],
+        ];
     }
 
     /**
@@ -45,16 +56,19 @@ class ProfileQuery extends Query
      * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
      * @param \Closure $getSelectFields
      *
-     * @return \App\Models\User
+     * @return \App\Models\Board|null
      */
-    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields): User
+    public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields): ?Board
     {
         /** @var SelectFields $fields */
         $fields = $getSelectFields();
+        $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        return Auth
-            ::user()
-            ->load($with);
+        return Board
+            ::where('id', $args['id'])
+            ->with($with)
+            ->select($select)
+            ->first();
     }
 }

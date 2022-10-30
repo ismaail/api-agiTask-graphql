@@ -77,10 +77,10 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                \App\GraphQL\Queries\UsersQuery::class,
-                \App\GraphQL\Queries\BoardsQuery::class,
-                \App\GraphQL\Queries\BoardQuery::class,
-                \App\GraphQL\Queries\ProfileQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\UsersQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\BoardsQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\BoardQuery::class,
+                \App\GraphQL\Schemas\Default\Queries\ProfileQuery::class,
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
@@ -90,14 +90,14 @@ return [
         ],
         'tenant' => [
             'query' => [
-                \App\GraphQL\Queries\BucketsQuery::class,
+                \App\GraphQL\Schemas\Tenant\Queries\BucketsQuery::class,
             ],
             'middleware' => ['auth:api', 'tenant'],
             'method' => ['GET', 'POST'],
         ],
         'auth' => [
             'mutation' => [
-                \App\GraphQL\Mutations\LoginMutation::class,
+                \App\GraphQL\Schemas\Auth\Mutations\LoginMutation::class,
             ],
             'middleware' => [],
             'method' => ['GET', 'POST'],
