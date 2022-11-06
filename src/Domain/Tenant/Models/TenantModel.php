@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tenant\Models;
+namespace Domain\Tenant\Models;
 
 /**
  * Interface TenantModel

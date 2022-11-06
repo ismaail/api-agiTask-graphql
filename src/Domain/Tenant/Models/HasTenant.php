@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tenant\Models;
+namespace Domain\Tenant\Models;
 
-use App\Tenant\TenantManager;
+use Domain\Tenant\TenantManager;
 
 /**
  * Trait HasTenant
@@ -17,7 +17,7 @@ trait HasTenant
      */
     public static function bootHasTenant(): void
     {
-        /** @var \App\Tenant\TenantManager $tenantManager */
+        /** @var \Domain\Tenant\TenantManager $tenantManager */
         $tenantManager = app(TenantManager::class);
 
         static::addGlobalScope(new TenantScope($tenantManager));

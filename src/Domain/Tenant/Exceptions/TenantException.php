@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tenant\Exceptions;
+namespace Domain\Tenant\Exceptions;
 
 use GraphQL\Error\Error;
 

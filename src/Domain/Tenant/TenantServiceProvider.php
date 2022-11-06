@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tenant;
+namespace Domain\Tenant;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
