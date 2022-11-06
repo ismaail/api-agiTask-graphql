@@ -6,7 +6,7 @@ namespace App\GraphQL\Schemas\Default\Queries;
 
 use Closure;
 use App\Models\User;
-use App\Models\Board;
+use Domain\Board\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;

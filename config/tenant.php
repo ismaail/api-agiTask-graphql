@@ -2,5 +2,5 @@
 
 return [
     // Model must implement TenantModel Interface.
-    'base_model' => \App\Models\Board::class,
+    'base_model' => \Domain\Board\Models\Board::class,
 ];

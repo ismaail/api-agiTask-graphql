@@ -4,9 +4,9 @@ namespace Tests\Unit\Models;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Board;
+use Domain\Board\Models\Board;
 use Illuminate\Support\Facades\DB;
-use App\Models\BoardMemberRelation;
+use Domain\Board\Models\BoardMemberRelation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**

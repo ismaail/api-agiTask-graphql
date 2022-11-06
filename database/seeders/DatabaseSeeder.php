@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Board;
 use App\Models\Bucket;
+use Domain\Board\Models\Board;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\BoardMemberRelation;
+use Domain\Board\Models\BoardMemberRelation;
 
 /**
  * Class DatabaseSeeder

@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Domain\Board\Models;
 
-use App\Tenant\Models\TenantModel;
+use Domain\User\Models\User;
+use Domain\Bucket\Models\Bucket;
 use Illuminate\Support\Facades\Auth;
+use Domain\Tenant\Models\TenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;

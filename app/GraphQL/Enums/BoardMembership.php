@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Enums;
 
-use App\Models\BoardMemberRelation;
 use Rebing\GraphQL\Support\EnumType;
+use Domain\Board\Models\BoardMemberRelation;
 
 /**
  * Class BoardMembership

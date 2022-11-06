@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Board;
 use Illuminate\Support\Str;
+use Domain\Board\Models\Board;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Domain\Board\Models;
 
 enum BoardMemberRelation: int
 {
