@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Domain\Bucket\Models;
 
-use App\Tenant\Models\HasTenant;
+use Domain\Board\Models\Board;
+use Domain\Tenant\Models\HasTenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

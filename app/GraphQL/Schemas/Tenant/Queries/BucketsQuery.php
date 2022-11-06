@@ -6,7 +6,7 @@ namespace App\GraphQL\Schemas\Tenant\Queries;
 
 use Closure;
 use App\Models\User;
-use App\Models\Bucket;
+use Domain\Bucket\Models\Bucket;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use App\GraphQL\Traits\PipeFilter;
@@ -58,7 +58,7 @@ class BucketsQuery extends Query
      * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
      * @param \Closure $getSelectFields
      *
-     * @return \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bucket>
+     * @return \Illuminate\Database\Eloquent\Collection<int, \Domain\Bucket\Models\Bucket>
      */
     public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): Collection
     {

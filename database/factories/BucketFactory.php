@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Bucket;
+use Domain\Bucket\Models\Bucket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

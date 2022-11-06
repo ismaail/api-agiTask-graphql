@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Bucket;
 use Domain\Board\Models\Board;
 use Illuminate\Database\Seeder;
+use Domain\Bucket\Models\Bucket;
 use Illuminate\Support\Facades\DB;
 use Domain\Board\Models\BoardMemberRelation;
 
