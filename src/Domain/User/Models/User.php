@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Domain\User\Models;
 
+use Domain\Board\Models\Board;
+use Domain\Board\Models\BoardMember;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Schemas\Tenant\Queries;
 
 use Closure;
-use App\Models\User;
+use Domain\User\Models\User;
 use Domain\Bucket\Models\Bucket;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
@@ -54,7 +54,7 @@ class BucketsQuery extends Query
     /**
      * @param mixed $root
      * @param array $args
-     * @param \App\Models\User $context
+     * @param \Domain\User\Models\User $context
      * @param \GraphQL\Type\Definition\ResolveInfo $resolveInfo
      * @param \Closure $getSelectFields
      *

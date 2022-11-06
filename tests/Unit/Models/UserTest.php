@@ -3,7 +3,7 @@
 namespace Tests\Unit\Models;
 
 use Tests\TestCase;
-use App\Models\User;
+use Domain\User\Models\User;
 use Domain\Board\Models\Board;
 use Illuminate\Support\Facades\DB;
 use Domain\Board\Models\BoardMemberRelation;

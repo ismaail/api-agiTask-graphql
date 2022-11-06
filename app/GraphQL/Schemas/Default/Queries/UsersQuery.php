@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Schemas\Default\Queries;
 
 use Closure;
-use App\Models\User;
+use Domain\User\Models\User;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
