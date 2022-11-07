@@ -6,10 +6,10 @@ namespace Domain\User\Models;
 
 use Domain\Board\Models\Board;
 use Domain\Board\Models\BoardMember;
+use Support\Models\Traits\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**

@@ -8,10 +8,10 @@ use Domain\User\Models\User;
 use Domain\Bucket\Models\Bucket;
 use Illuminate\Support\Facades\Auth;
 use Domain\Tenant\Models\TenantModel;
+use Support\Models\Traits\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**

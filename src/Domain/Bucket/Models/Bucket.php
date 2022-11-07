@@ -6,9 +6,9 @@ namespace Domain\Bucket\Models;
 
 use Domain\Board\Models\Board;
 use Domain\Tenant\Models\HasTenant;
+use Support\Models\Traits\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Bucket
