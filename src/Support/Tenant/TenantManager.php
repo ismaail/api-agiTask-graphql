@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tenant;
+namespace Support\Tenant;
 
-use Domain\Tenant\Models\TenantModel;
+use Support\Tenant\Models\TenantModel;
 
 /**
  * Class Manager
@@ -13,7 +13,7 @@ use Domain\Tenant\Models\TenantModel;
 class TenantManager
 {
     /**
-     * @var \Domain\Tenant\Models\TenantModel
+     * @var \Support\Tenant\Models\TenantModel
      */
     private TenantModel $tenant;
 

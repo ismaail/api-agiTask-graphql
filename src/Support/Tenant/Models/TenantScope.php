@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tenant\Models;
+namespace Support\Tenant\Models;
 
-use Domain\Tenant\TenantManager;
+use Support\Tenant\TenantManager;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;

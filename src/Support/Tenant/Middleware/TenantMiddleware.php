@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Domain\Tenant\Middleware;
+namespace Support\Tenant\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Domain\Tenant\TenantManager;
+use Support\Tenant\TenantManager;
 use Illuminate\Http\JsonResponse;
-use Domain\Tenant\Models\TenantModel;
-use Domain\Tenant\Exceptions\TenantException;
+use Support\Tenant\Models\TenantModel;
+use Support\Tenant\Exceptions\TenantException;
 
 /**
  * Class TenantMiddleware
@@ -27,7 +27,7 @@ class TenantMiddleware
 
         $tenant = $this->resolveTenant($tenantHeader);
 
-        /** @var \Domain\Tenant\TenantManager $tenantManager */
+        /** @var \Support\Tenant\TenantManager $tenantManager */
         $tenantManager = app(TenantManager::class);
         $tenantManager->setTenant($tenant);
 
@@ -37,9 +37,9 @@ class TenantMiddleware
     /**
      * @param int $tenantId
      *
-     * @return \Domain\Tenant\Models\TenantModel
+     * @return \Support\Tenant\Models\TenantModel
      *
-     * @throws \Domain\Tenant\Exceptions\TenantException
+     * @throws \Support\Tenant\Exceptions\TenantException
      */
     private function resolveTenant(int $tenantId): TenantModel
     {
