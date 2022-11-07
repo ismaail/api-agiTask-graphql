@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Bucket;
 
 use Domain\Bucket\Models\Bucket;
 use Illuminate\Database\Eloquent\Factories\Factory;

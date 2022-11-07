@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Board;
 
 use Illuminate\Support\Str;
 use Domain\Board\Models\Board;

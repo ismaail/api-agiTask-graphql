@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\User;
 
 use Illuminate\Support\Str;
 use Domain\User\Models\User;
