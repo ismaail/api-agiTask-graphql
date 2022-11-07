@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Types;
+namespace Domain\Board\GraphQL\Types;
 
 use Domain\Board\Models\Board;
 use GraphQL\Type\Definition\Type;

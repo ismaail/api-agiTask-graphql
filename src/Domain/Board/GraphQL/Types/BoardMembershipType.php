@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Enums;
+namespace Domain\Board\GraphQL\Types;
 
 use Rebing\GraphQL\Support\EnumType;
 use Domain\Board\Models\BoardMemberRelation;
@@ -11,7 +11,7 @@ use Domain\Board\Models\BoardMemberRelation;
  * Class BoardMembership
  * @package App\GraphQL\Enums
  */
-class BoardMembership extends EnumType
+class BoardMembershipType extends EnumType
 {
     /**
      * @var array<string, string|array>

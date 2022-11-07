@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Schemas\Auth\Mutations;
+namespace Domain\Auth\GraphQL\Mutations;
 
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;

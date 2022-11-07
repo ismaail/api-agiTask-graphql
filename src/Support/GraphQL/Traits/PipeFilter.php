@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Traits;
+namespace Support\GraphQL\Traits;
 
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 

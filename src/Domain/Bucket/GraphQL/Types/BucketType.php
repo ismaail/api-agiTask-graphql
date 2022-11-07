@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Types;
+namespace Domain\Bucket\GraphQL\Types;
 
 use Domain\Bucket\Models\Bucket;
 use GraphQL\Type\Definition\Type;

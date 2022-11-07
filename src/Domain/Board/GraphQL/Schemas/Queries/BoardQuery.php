@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Schemas\Default\Queries;
+namespace Domain\Board\GraphQL\Schemas\Queries;
 
 use Closure;
 use Domain\User\Models\User;

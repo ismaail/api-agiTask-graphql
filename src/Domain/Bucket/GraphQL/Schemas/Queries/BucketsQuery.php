@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Schemas\Tenant\Queries;
+namespace Domain\Bucket\GraphQL\Schemas\Queries;
 
 use Closure;
 use Domain\User\Models\User;
 use Domain\Bucket\Models\Bucket;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
-use App\GraphQL\Traits\PipeFilter;
+use Support\GraphQL\Traits\PipeFilter;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
