@@ -16,7 +16,7 @@ use Rebing\GraphQL\Support\Type as GraphqlType;
 class UserType extends GraphqlType
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'User',
@@ -24,7 +24,7 @@ class UserType extends GraphqlType
     ];
 
     /**
-     * @return array[]
+     * @return array<string, array<string, mixed>>
      */
     public function fields(): array
     {

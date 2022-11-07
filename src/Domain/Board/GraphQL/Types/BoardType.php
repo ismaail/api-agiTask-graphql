@@ -16,7 +16,7 @@ use Rebing\GraphQL\Support\Type as GraphqlType;
 class BoardType extends GraphqlType
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'Board',
@@ -24,7 +24,7 @@ class BoardType extends GraphqlType
     ];
 
     /**
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public function fields(): array
     {

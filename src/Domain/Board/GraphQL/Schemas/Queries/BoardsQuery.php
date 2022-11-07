@@ -40,7 +40,7 @@ class BoardsQuery extends Query
     }
 
     /**
-     * @return array<string, array<string, \GraphQL\Type\Definition\ScalarType>>
+     * @return array<string, array<string, mixed>>
      */
     public function args(): array
     {

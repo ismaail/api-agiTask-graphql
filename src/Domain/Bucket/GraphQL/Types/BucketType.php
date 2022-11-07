@@ -15,7 +15,7 @@ use Rebing\GraphQL\Support\Type as GraphQLType;
 class BucketType extends GraphQLType
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'Bucket',
@@ -24,7 +24,7 @@ class BucketType extends GraphQLType
     ];
 
     /**
-     * @return array[]
+     * @return array<string, array<string, \GraphQL\Type\Definition\ScalarType>>
      */
     public function fields(): array
     {
