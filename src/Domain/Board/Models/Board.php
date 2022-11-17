@@ -14,10 +14,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * Class Board
- * @package App\Models
- */
 class Board extends Model implements TenantModel
 {
     use HasFactory;

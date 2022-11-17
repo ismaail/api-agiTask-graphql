@@ -13,9 +13,6 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
- * Class UserQuery
- * @package App\GraphQL\Queries
- *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  * @phpcs:disable Generic.Files.LineLength.TooLong
  *

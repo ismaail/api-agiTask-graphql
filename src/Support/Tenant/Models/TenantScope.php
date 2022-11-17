@@ -10,9 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * Class TenantScope
- * @package App\Tenant\Models
- *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
 class TenantScope implements Scope

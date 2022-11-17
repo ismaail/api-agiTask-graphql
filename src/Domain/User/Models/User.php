@@ -12,10 +12,6 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * Class User
- * @package App\Models
- */
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory;

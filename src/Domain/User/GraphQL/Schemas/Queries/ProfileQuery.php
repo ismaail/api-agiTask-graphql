@@ -14,9 +14,6 @@ use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
- * Class ProfileQuery
- * @package App\GraphQL\Queries
- *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  * @phpcs:disable Generic.Files.LineLength.TooLong
  */

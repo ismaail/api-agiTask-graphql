@@ -7,20 +7,17 @@ namespace Domain\Auth\GraphQL\Types;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-/**
- * Class AccessToken
- */
 class AccessTokenType extends GraphQLType
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     protected $attributes = [
         'name' => 'AccessToken',
     ];
 
     /**
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
     public function fields(): array
     {

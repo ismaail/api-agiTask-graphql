@@ -9,10 +9,6 @@ use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphqlType;
 
-/**
- * Class UserType
- * @package App\GraphQL\Types
- */
 class UserType extends GraphqlType
 {
     /**

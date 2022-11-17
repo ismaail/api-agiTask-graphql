@@ -11,9 +11,6 @@ use App\Exceptions\AuthenticationError;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
- * Class LoginMutation
- * @package App\GraphQL\Mutations
- *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  */
 class LoginMutation extends Mutation

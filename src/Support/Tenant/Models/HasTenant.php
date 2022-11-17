@@ -6,10 +6,6 @@ namespace Support\Tenant\Models;
 
 use Support\Tenant\TenantManager;
 
-/**
- * Trait HasTenant
- * @package App\Tenant\Models
- */
 trait HasTenant
 {
     /**

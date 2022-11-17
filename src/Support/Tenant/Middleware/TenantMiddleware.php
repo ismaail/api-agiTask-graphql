@@ -11,10 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Support\Tenant\Models\TenantModel;
 use Support\Tenant\Exceptions\TenantException;
 
-/**
- * Class TenantMiddleware
- * @package App\Http\Middleware
- */
 class TenantMiddleware
 {
     public function handle(Request $request, Closure $next): Request|JsonResponse
@@ -34,13 +30,6 @@ class TenantMiddleware
         return $next($request);
     }
 
-    /**
-     * @param int $tenantId
-     *
-     * @return \Support\Tenant\Models\TenantModel
-     *
-     * @throws \Support\Tenant\Exceptions\TenantException
-     */
     private function resolveTenant(int $tenantId): TenantModel
     {
         $modelClass = config('tenant.base_model');

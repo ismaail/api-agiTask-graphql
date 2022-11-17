@@ -9,14 +9,10 @@ use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphqlType;
 
-/**
- * Class ProjectType
- * @package App\Graphql\Types
- */
 class BoardType extends GraphqlType
 {
     /**
-     * @var array<string, string>
+     * @var array<string, string|class-string>
      */
     protected $attributes = [
         'name' => 'Board',

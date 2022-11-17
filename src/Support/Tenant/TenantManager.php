@@ -6,10 +6,6 @@ namespace Support\Tenant;
 
 use Support\Tenant\Models\TenantModel;
 
-/**
- * Class Manager
- * @package App\Tenant
- */
 class TenantManager
 {
     /**

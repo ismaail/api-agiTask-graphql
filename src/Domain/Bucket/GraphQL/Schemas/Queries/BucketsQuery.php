@@ -16,9 +16,6 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Class BucketQuery
- * @package App\GraphQL\Queries
- *
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
  * @phpcs:disable Generic.Files.LineLength.TooLong
  */

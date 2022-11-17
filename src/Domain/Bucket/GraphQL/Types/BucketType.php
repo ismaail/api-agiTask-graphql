@@ -8,10 +8,6 @@ use Domain\Bucket\Models\Bucket;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-/**
- * Class BucketType
- * @package App\GraphQL\Types
- */
 class BucketType extends GraphQLType
 {
     /**
