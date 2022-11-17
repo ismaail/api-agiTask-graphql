@@ -77,10 +77,10 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                \App\GraphQL\Schemas\Default\Queries\UsersQuery::class,
-                \App\GraphQL\Schemas\Default\Queries\BoardsQuery::class,
-                \App\GraphQL\Schemas\Default\Queries\BoardQuery::class,
-                \App\GraphQL\Schemas\Default\Queries\ProfileQuery::class,
+                \Domain\User\GraphQL\Schemas\Queries\UsersQuery::class,
+                \Domain\Board\GraphQL\Schemas\Queries\BoardsQuery::class,
+                \Domain\Board\GraphQL\Schemas\Queries\BoardQuery::class,
+                \Domain\User\GraphQL\Schemas\Queries\ProfileQuery::class,
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
@@ -90,14 +90,14 @@ return [
         ],
         'tenant' => [
             'query' => [
-                \App\GraphQL\Schemas\Tenant\Queries\BucketsQuery::class,
+                \Domain\Bucket\GraphQL\Schemas\Queries\BucketsQuery::class,
             ],
             'middleware' => ['auth:api', 'tenant'],
             'method' => ['GET', 'POST'],
         ],
         'auth' => [
             'mutation' => [
-                \App\GraphQL\Schemas\Auth\Mutations\LoginMutation::class,
+                \Domain\Auth\GraphQL\Mutations\LoginMutation::class,
             ],
             'middleware' => [],
             'method' => ['GET', 'POST'],
@@ -114,12 +114,12 @@ return [
     // ]
     //
     'types' => [
-        \App\GraphQL\Types\UserType::class,
-        \App\GraphQL\Types\BoardType::class,
-        \App\GraphQL\Types\BucketType::class,
-        \App\GraphQL\Types\AccessTokenType::class,
+        \Domain\User\GraphQL\Types\UserType::class,
+        \Domain\Board\GraphQL\Types\BoardType::class,
+        \Domain\Bucket\GraphQL\Types\BucketType::class,
+        \Domain\Auth\GraphQL\Types\AccessTokenType::class,
 
-        \App\GraphQL\Enums\BoardMembership::class,
+        \Domain\Board\GraphQL\Types\BoardMembershipType::class,
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request
