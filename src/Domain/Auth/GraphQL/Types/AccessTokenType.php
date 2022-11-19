@@ -35,7 +35,7 @@ class AccessTokenType extends GraphQLType
                 'selectable' => false,
             ],
             'expires_at' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'selectable' => false,
             ],
         ];

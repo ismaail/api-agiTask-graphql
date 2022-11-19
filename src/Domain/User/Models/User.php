@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\User\Models;
 
 use Domain\Board\Models\Board;
-use Laravel\Passport\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 use Domain\Board\Models\BoardMember;
 use Support\Models\Traits\HasFactory;
 use Illuminate\Notifications\Notifiable;
