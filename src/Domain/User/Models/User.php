@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Domain\User\Models;
 
 use Domain\Board\Models\Board;
+use Laravel\Passport\HasApiTokens;
 use Domain\Board\Models\BoardMember;
 use Support\Models\Traits\HasFactory;
 use Illuminate\Notifications\Notifiable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
