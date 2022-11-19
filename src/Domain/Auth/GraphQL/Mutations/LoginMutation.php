@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Auth\GraphQL\Mutations;
 
-use Closure;
-use Domain\User\Models\User;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\AuthenticationError;
 use Rebing\GraphQL\Support\Facades\GraphQL;
-use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
