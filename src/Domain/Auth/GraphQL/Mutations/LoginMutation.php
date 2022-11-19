@@ -77,8 +77,8 @@ class LoginMutation extends Mutation
         return [
             'user_id' => $user->id,
             'token_type' => 'Bearer',
-            'access_token' => $token->accessToken,
-            'expires_at' => $token->token->expires_at,
+            'access_token' => $token->plainTextToken,
+            'expires_at' => $token->accessToken->expires_at,
         ];
     }
 }
