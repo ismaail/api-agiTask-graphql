@@ -16,10 +16,9 @@
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.0",
+        "laravel/passport": "^11.3",
         "laravel/telescope": "^4.6",
-        "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
-        "php-open-source-saver/jwt-auth": "^1.4",
         "rebing/graphql-laravel": "^8.2.1"
     },
     "require-dev": {

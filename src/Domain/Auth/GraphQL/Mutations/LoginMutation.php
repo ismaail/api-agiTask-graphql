@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Domain\Auth\GraphQL\Mutations;
 
+use Closure;
+use Domain\User\Models\User;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Mutation;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\AuthenticationError;
 use Rebing\GraphQL\Support\Facades\GraphQL;
+use GraphQL\Type\Definition\ResolveInfo;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+ * @phpcs:disable Generic.Files.LineLength.TooLong
  */
 class LoginMutation extends Mutation
 {
@@ -25,7 +29,7 @@ class LoginMutation extends Mutation
 
     public function type(): Type
     {
-        return Type::nonNull(GraphQL::type('AccessToken'));
+        return GraphQL::type('AccessToken');
     }
 
     /**
@@ -60,18 +64,20 @@ class LoginMutation extends Mutation
             'password' => $args['password'],
         ];
 
-        /** @var \PHPOpenSourceSaver\JWTAuth\JWTGuard $authGuard */
-        $authGuard = Auth::guard('api');
-        $token = $authGuard->attempt($credentials);
-
-        if (! $token) {
+        if (! Auth::guard('web')->attempt($credentials)) {
             throw new AuthenticationError('Wrong Credentials');
         }
 
+        /** @var \Domain\User\Models\User $user */
+        $user = Auth::user();
+        $user->load('tokens');
+
+        $token = $user->createToken(config('app.name') . ' Password Grant Client');
+
         return [
-            'token_type' => 'bearer',
-            'access_token' => $token,
-            'expires_in' => config('jwt.ttl') * 60,
+            'user_id' => $user->id,
+            'token_type' => 'Bearer',
+            'access_token' => $token->accessToken,
         ];
     }
 }
