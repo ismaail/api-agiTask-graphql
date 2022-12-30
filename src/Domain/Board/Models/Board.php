@@ -67,7 +67,7 @@ class Board extends Model implements TenantModel
 
     public function buckets(): HasMany
     {
-        return $this->hasMany(Bucket::class, 'tenant_id', 'id');
+        return $this->hasMany(Bucket::class, 'board_id', 'id');
     }
 
     public function getTenantId(): int
