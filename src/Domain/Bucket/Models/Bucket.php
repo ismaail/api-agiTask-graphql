@@ -10,10 +10,6 @@ use Support\Models\Traits\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * Class Bucket
- * @package App\Models
- */
 class Bucket extends Model
 {
     use HasFactory;
