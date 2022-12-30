@@ -1,4 +1,4 @@
-.PHONY: up start stop down reboot artisan migrate seed composer tests fix-permissions ide-helper cache-clear nginx-reload
+.PHONY: up start stop down reboot artisan migrate seed composer tests fix-permissions ide-helper cache\:clear nginx\:reload
 
 # Set dir of Makefile to a variable to use later
 MAKEPATH := $(abspath $(lastword $(MAKEFILE_LIST)))
@@ -49,7 +49,7 @@ migrate:
 		php artisan migrate --step \
 		2>/dev/null || true
 
-migrate-fresh:
+migrate\:fresh:
 	docker exec -it \
 			-u $(UID) \
 			$(CONTAINER_FPM) \
@@ -99,14 +99,14 @@ ide-helper:
 	docker exec -it -u $(UID) $(CONTAINER_FPM) php artisan ide-helper:generate 2>/dev/null || true && \
 	docker exec -it -u $(UID) $(CONTAINER_FPM) php artisan ide-helper:models --nowrite 2>/dev/null || true
 
-cache-clear:
+cache\:clear:
 	docker exec -it -u $(UID) $(CONTAINER_FPM) php artisan cache:clear 2>/dev/null || true && \
 	docker exec -it -u $(UID) $(CONTAINER_FPM) php artisan config:clear 2>/dev/null || true && \
 	docker exec -it -u $(UID) $(CONTAINER_FPM) php artisan view:clear 2>/dev/null || true
 #	docker exec -it -u $(UID) $(CONTAINER_FPM) php cachetool.phar opcache:reset 2>/dev/null || true
 
-nginx-reload:
+nginx\:reload:
 	docker kill -s HUP $(CONTAINER_NGINX) 2>/dev/null || true
 
-fpm-reload:
+fpm\:reload:
 	docker exec -it $(CONTAINER_FPM) kill -USR2 1
