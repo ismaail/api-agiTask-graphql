@@ -61,7 +61,7 @@ class Board extends Model implements TenantModel
     public function owner(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'board_member', 'board_id', 'user_id')
-            ->where('relation', BoardMemberRelation::OWNER)
+            ->where('relation', Relation::OWNER)
             ->using(BoardMember::class);
     }
 

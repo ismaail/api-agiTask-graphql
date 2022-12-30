@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Domain\User\Models\User;
 use Domain\Board\Models\Board;
 use Illuminate\Support\Facades\DB;
-use Domain\Board\Models\BoardMemberRelation;
+use Domain\Board\Models\Relation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -41,7 +41,7 @@ class UserTest extends TestCase
             ->count(2)
             ->hasAttached(
                 $authUser,
-                ['relation' => BoardMemberRelation::OWNER],
+                ['relation' => Relation::OWNER],
                 'members',
             )
             ->create();
@@ -52,7 +52,7 @@ class UserTest extends TestCase
             ->count(3)
             ->hasAttached(
                 User::factory(),
-                ['relation' => BoardMemberRelation::OWNER],
+                ['relation' => Relation::OWNER],
                 'members',
             )
             ->create();

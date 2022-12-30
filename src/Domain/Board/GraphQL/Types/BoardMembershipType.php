@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Board\GraphQL\Types;
 
 use Rebing\GraphQL\Support\EnumType;
-use Domain\Board\Models\BoardMemberRelation;
+use Domain\Board\Models\Relation;
 
 class BoardMembershipType extends EnumType
 {
@@ -17,10 +17,10 @@ class BoardMembershipType extends EnumType
         'description' => 'Board Membership Enum',
         'values' => [
             'OWNER' => [
-                'value' => BoardMemberRelation::OWNER,
+                'value' => Relation::OWNER,
             ],
             'GUEST' => [
-                'value' => BoardMemberRelation::GUEST,
+                'value' => Relation::GUEST,
             ],
         ],
     ];
