@@ -11,6 +11,7 @@ use Support\Models\Traits\HasFactory;
 use Support\Tenant\Models\TenantModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Domain\Board\QueryBuilders\BoardQueryBuilder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -48,6 +49,11 @@ class Board extends Model implements TenantModel
             'board_member',
             fn(Builder $q) => $q->whereRelation('members', 'id', '=', Auth::user()->id)
         );
+    }
+
+    public function newEloquentBuilder($query): BoardQueryBuilder
+    {
+        return new BoardQueryBuilder($query);
     }
 
     public function members(): BelongsToMany
