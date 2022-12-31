@@ -17,6 +17,6 @@ class BoardMember extends Pivot
      * @var array<string, string>
      */
     protected $casts = [
-        'relation' => BoardMemberRelation::class,
+        'relation' => Relation::class,
     ];
 }

@@ -8,14 +8,11 @@ use Closure;
 use Domain\User\Models\User;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
-use Illuminate\Support\Facades\Auth;
 use GraphQL\Type\Definition\ResolveInfo;
-use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- * @phpcs:disable Generic.Files.LineLength.TooLong
  */
 class ProfileQuery extends Query
 {
@@ -32,14 +29,13 @@ class ProfileQuery extends Query
         return Type::nonNull(GraphQL::type('User'));
     }
 
-    public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): User
-    {
-        /** @var SelectFields $fields */
-        $fields = $getSelectFields();
-        $with = $fields->getRelations();
-
-        return Auth
-            ::user()
-            ->load($with);
+    public function resolve(
+        mixed $root,
+        array $args,
+        User $context,
+        ResolveInfo $resolveInfo,
+        Closure $getSelectFields
+    ): User {
+        return User::me($getSelectFields());
     }
 }

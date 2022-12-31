@@ -23,7 +23,7 @@ class CreateBucketsTable extends Migration
     {
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tenant_id')->constrained(CreateBoardsTable::TABLE_NAME)
+            $table->foreignId('board_id')->constrained(CreateBoardsTable::TABLE_NAME)
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->boolean('archived')->default(false);

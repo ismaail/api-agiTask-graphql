@@ -7,7 +7,7 @@ use Domain\Board\Models\Board;
 use Illuminate\Database\Seeder;
 use Domain\Bucket\Models\Bucket;
 use Illuminate\Support\Facades\DB;
-use Domain\Board\Models\BoardMemberRelation;
+use Domain\Board\Models\Relation;
 
 /**
  * Class DatabaseSeeder
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                         Bucket::factory()->count(3),
                         'buckets',
                     ),
-                ['relation' => BoardMemberRelation::OWNER],
+                ['relation' => Relation::OWNER],
                 'boards'
             )
             ->create([
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             ->count(7)
             ->hasAttached(
                 User::factory(),
-                ['relation' => BoardMemberRelation::OWNER],
+                ['relation' => Relation::OWNER],
                 'members',
             )
             ->has(

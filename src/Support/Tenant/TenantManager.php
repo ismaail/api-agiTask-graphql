@@ -25,6 +25,6 @@ class TenantManager
 
     public function getPrimaryKey(): string
     {
-        return 'tenant_id';
+        return config('tenant.primary_key');
     }
 }

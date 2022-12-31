@@ -10,13 +10,10 @@ use Domain\Board\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
-use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- * @phpcs:disable Generic.Files.LineLength.TooLong
- *
  */
 class BoardQuery extends Query
 {
@@ -45,17 +42,13 @@ class BoardQuery extends Query
         ];
     }
 
-    public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): ?Board
-    {
-        /** @var SelectFields $fields */
-        $fields = $getSelectFields();
-        $select = $fields->getSelect();
-        $with = $fields->getRelations();
-
-        return Board
-            ::where('id', $args['id'])
-            ->with($with)
-            ->select($select)
-            ->first();
+    public function resolve(
+        mixed $root,
+        array $args,
+        User $context,
+        ResolveInfo $resolveInfo,
+        Closure $getSelectFields,
+    ): ?Board {
+        return Board::findById($args['id'], $getSelectFields());
     }
 }

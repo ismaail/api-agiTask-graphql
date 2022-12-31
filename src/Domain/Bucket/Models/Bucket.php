@@ -8,12 +8,9 @@ use Domain\Board\Models\Board;
 use Support\Tenant\Models\HasTenant;
 use Support\Models\Traits\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Domain\Bucket\QueryBuilders\BucketQueryBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/**
- * Class Bucket
- * @package App\Models
- */
 class Bucket extends Model
 {
     use HasFactory;
@@ -53,8 +50,13 @@ class Bucket extends Model
         'ends_at',
     ];
 
+    public function newEloquentBuilder($query): BucketQueryBuilder
+    {
+        return new BucketQueryBuilder($query);
+    }
+
     public function board(): BelongsTo
     {
-        return $this->belongsTo(Board::class, 'tenant_id', 'id');
+        return $this->belongsTo(Board::class, 'board_id', 'id');
     }
 }
