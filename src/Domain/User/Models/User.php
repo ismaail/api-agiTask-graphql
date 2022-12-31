@@ -9,6 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Domain\Board\Models\BoardMember;
 use Support\Models\Traits\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Domain\User\QueryBuilders\UserQueryBuilder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -47,6 +48,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function newEloquentBuilder($query): UserQueryBuilder
+    {
+        return new UserQueryBuilder($query);
+    }
 
     public function boards(): BelongsToMany
     {
