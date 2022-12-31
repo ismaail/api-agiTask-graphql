@@ -12,7 +12,6 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- * @phpcs:disable Generic.Files.LineLength.TooLong
  */
 class LoginMutation extends Mutation
 {
@@ -50,7 +49,7 @@ class LoginMutation extends Mutation
      * @param mixed $root
      * @param array $args
      *
-     * @return array{token_type: string, access_token: string, expires_in: int}
+     * @return array{user_id: int, token_type: string, access_token: string, expires_in: int}
      *
      * @throws \App\Exceptions\AuthenticationError If Wrong Credentials.
      */
