@@ -11,10 +11,10 @@ use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Domain\User\DataTransferObjects\UsersQueryArgsData;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- * @phpcs:disable Generic.Files.LineLength.TooLong
  *
  */
 class UsersQuery extends Query
@@ -51,13 +51,13 @@ class UsersQuery extends Query
         ];
     }
 
-    public function resolve(mixed $root, array $args, User $context, ResolveInfo $info, Closure $getSelectFields): LengthAwarePaginator
-    {
-        $fields = $getSelectFields();
-
-        return User
-            ::with($fields->getRelations())
-            ->select($fields->getSelect())
-            ->paginate($args['limit'], page: $args['page']);
+    public function resolve(
+        mixed $root,
+        array $args,
+        User $context,
+        ResolveInfo $info,
+        Closure $getSelectFields
+    ): LengthAwarePaginator {
+        return User::findPaginate($getSelectFields(), UsersQueryArgsData::fromArray($args));
     }
 }
