@@ -9,20 +9,16 @@ use Domain\User\Models\User;
 use Domain\Board\Models\Board;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
-use Support\GraphQL\Traits\PipeFilter;
 use GraphQL\Type\Definition\ResolveInfo;
-use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Domain\Board\DataTransferObjects\BoardsQueryArgsData;
 
 /**
  * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- * @phpcs:disable Generic.Files.LineLength.TooLong
  */
 class BoardsQuery extends Query
 {
-    use PipeFilter;
-
     /**
      * @var array<string, string>
      */
@@ -56,19 +52,16 @@ class BoardsQuery extends Query
         ];
     }
 
-    public function resolve(mixed $root, array $args, User $context, ResolveInfo $resolveInfo, Closure $getSelectFields): LengthAwarePaginator
-    {
-        /** @var SelectFields $fields */
-        $fields = $getSelectFields();
-        $select = $fields->getSelect();
-        $with = $fields->getRelations();
-
-        $query = Board
-            ::with($with)
-            ->select($select);
-
-        $this->filter($query, 'archived', $args);
-
-        return $query->paginate($args['limit'], page: $args['page']);
+    public function resolve(
+        mixed $root,
+        array $args,
+        User $context,
+        ResolveInfo $resolveInfo,
+        Closure $getSelectFields
+    ): LengthAwarePaginator {
+        return Board::findPaginate(
+            fields: $getSelectFields(),
+            args: BoardsQueryArgsData::fromArray($args),
+        );
     }
 }
