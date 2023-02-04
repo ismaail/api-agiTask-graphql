@@ -7,12 +7,10 @@ use Domain\User\Models\User;
 use Domain\Board\Models\Board;
 use Illuminate\Support\Facades\DB;
 use Domain\Board\Models\Relation;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class ExampleTest
- * @package Tests\Unit
- *
  * @SuppressWarnings(PHPMD.CamelCaseMethodName)
  * @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
  */
@@ -20,9 +18,7 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function auth_user_can_see_only_his_own_boards(): void
     {
         // Create First User with Boards
