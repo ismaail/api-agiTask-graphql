@@ -72,6 +72,14 @@ composer:
 		composer $(cmd) \
 		2>/dev/null || true
 
+composer\:update:
+	docker exec -it \
+		-u $(UID) \
+		-e XDEBUG_MODE=off \
+		$(CONTAINER_FPM) \
+		composer update -o \
+		2>/dev/null || true
+
 tests:
 	docker exec -it \
 		-u $(UID) \
