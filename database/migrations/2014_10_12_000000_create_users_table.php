@@ -4,24 +4,14 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateUsersTable
- *
- * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
- */
-class CreateUsersTable extends Migration
+return new class extends Migration
 {
-    /**
-     * @const string
-     */
-    public const TABLE_NAME = 'users';
-
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create(self::TABLE_NAME, function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
@@ -37,6 +27,6 @@ class CreateUsersTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(self::TABLE_NAME);
+        Schema::dropIfExists('users');
     }
-}
+};
