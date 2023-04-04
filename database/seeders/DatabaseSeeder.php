@@ -9,10 +9,6 @@ use Domain\Bucket\Models\Bucket;
 use Illuminate\Support\Facades\DB;
 use Domain\Board\Models\Relation;
 
-/**
- * Class DatabaseSeeder
- * @package Database\Seeders
- */
 class DatabaseSeeder extends Seeder
 {
     /**
